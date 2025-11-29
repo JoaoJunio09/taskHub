@@ -52,9 +52,30 @@ public class PersonService {
         return addHateoas(dto);
     }
 
+    public PersonDTO update(PersonDTO dto) {
+
+        var entity = repository.findById(dto.getId())
+                .orElseThrow(() -> new NotFoundException("Not found this ID:" + dto.getId()));
+        entity.setFirstName(dto.getFirstName());
+        entity.setLastName(dto.getLastName());
+        entity.setBirthDate(dto.getBirthDate());
+        entity.setPhone(dto.getPhone());
+        var person = parseObject(repository.save(entity), PersonDTO.class);
+        return addHateoas(person);
+    }
+
+    public void delete(Long id) {
+        var entity = repository.findById(id)
+            .orElseThrow(() -> new NotFoundException("Not found this ID:" + id));
+        repository.delete(entity);
+    }
+
     private PersonDTO addHateoas(PersonDTO dto) {
         dto.add(linkTo(methodOn(PersonController.class).findById(dto.getId())).withSelfRel().withType("GET"));
         dto.add(linkTo(methodOn(PersonController.class).findAll()).withRel("findAll").withType("GET"));
+        dto.add(linkTo(methodOn(PersonController.class).create(dto)).withRel("create").withType("POST"));
+        dto.add(linkTo(methodOn(PersonController.class).update(dto)).withRel("update").withType("PUT"));
+        dto.add(linkTo(methodOn(PersonController.class).delete(dto.getId())).withRel("delete").withType("DELETE"));
         return dto;
     }
 }
