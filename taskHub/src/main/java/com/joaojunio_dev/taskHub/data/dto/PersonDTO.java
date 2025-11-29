@@ -1,9 +1,13 @@
 package com.joaojunio_dev.taskHub.data.dto;
 
+import org.springframework.hateoas.RepresentationModel;
+
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
-public class PersonDTO {
+public class PersonDTO extends RepresentationModel<PersonDTO> implements Serializable {
+    static final long serialVersion = 1L;
 
     private Long id;
     private String firstName;
