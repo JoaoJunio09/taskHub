@@ -2,6 +2,9 @@ package com.joaojunio_dev.taskHub.services;
 
 import com.joaojunio_dev.taskHub.controllers.PersonController;
 import com.joaojunio_dev.taskHub.data.dto.PersonDTO;
+import com.joaojunio_dev.taskHub.exceptions.NotFoundException;
+import com.joaojunio_dev.taskHub.exceptions.ObjectIsNullException;
+import com.joaojunio_dev.taskHub.model.Person;
 import com.joaojunio_dev.taskHub.repositories.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,7 +35,26 @@ public class PersonService {
         return dtos;
     }
 
-    private void addHateoas(PersonDTO dto) {
+    public PersonDTO findById(Long id) {
+        var entity = repository.findById(id)
+            .orElseThrow(() -> new NotFoundException("Not found this ID : " + id));
+        var dto = parseObject(entity, PersonDTO.class);
+        return addHateoas(dto);
+    }
+
+    public PersonDTO create(PersonDTO dto) {
+        if (dto == null) {
+            throw new ObjectIsNullException("The Object is null");
+        }
+
+        var entity = parseObject(dto, Person.class);
+        dto = parseObject(repository.save(entity), PersonDTO.class);
+        return addHateoas(dto);
+    }
+
+    private PersonDTO addHateoas(PersonDTO dto) {
+        dto.add(linkTo(methodOn(PersonController.class).findById(dto.getId())).withSelfRel().withType("GET"));
         dto.add(linkTo(methodOn(PersonController.class).findAll()).withRel("findAll").withType("GET"));
+        return dto;
     }
 }
