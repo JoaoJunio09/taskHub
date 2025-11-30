@@ -1,7 +1,10 @@
 package com.joaojunio_dev.taskHub.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
+import org.springframework.cglib.core.Local;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Objects;
 
@@ -20,14 +23,15 @@ public class Person {
     private String lastName;
 
     @Column
-    private Date birthDate;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+    private LocalDate birthDate;
 
     @Column(length = 11)
     private String phone;
 
     public Person() {}
 
-    public Person(Long id, String firstName, String lastName, Date birthDate, String phone) {
+    public Person(Long id, String firstName, String lastName, LocalDate birthDate, String phone) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -59,11 +63,11 @@ public class Person {
         this.lastName = lastName;
     }
 
-    public Date getBirthDate() {
+    public LocalDate getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(Date birthDate) {
+    public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
     }
 

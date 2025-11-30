@@ -3,6 +3,7 @@ package com.joaojunio_dev.taskHub.data.dto;
 import org.springframework.hateoas.RepresentationModel;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Objects;
 
@@ -12,12 +13,12 @@ public class PersonDTO extends RepresentationModel<PersonDTO> implements Seriali
     private Long id;
     private String firstName;
     private String lastName;
-    private Date birthDate;
+    private LocalDate birthDate;
     private String phone;
 
     public PersonDTO() {}
 
-    public PersonDTO(Long id, String firstName, String lastName, Date birthDate, String phone) {
+    public PersonDTO(Long id, String firstName, String lastName, LocalDate birthDate, String phone) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -49,11 +50,11 @@ public class PersonDTO extends RepresentationModel<PersonDTO> implements Seriali
         this.lastName = lastName;
     }
 
-    public Date getBirthDate() {
+    public LocalDate getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(Date birthDate) {
+    public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
     }
 

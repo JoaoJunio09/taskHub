@@ -31,15 +31,9 @@ public class PersonService {
 
         logger.info("Find's All Person");
 
-        var entities = repository.findAll();
-        List<PersonDTO> dtos = new ArrayList<>();
-        parseListObjects(entities, PersonDTO.class).stream()
-            .map(dto -> {
-                addHateoas(dto);
-                dtos.add(dto);
-                return dto;
-            });
-        return dtos;
+        var persons = parseListObjects(repository.findAll(), PersonDTO.class);
+        persons.forEach(this::addHateoas);
+        return persons;
     }
 
     public PersonDTO findById(Long id) {
