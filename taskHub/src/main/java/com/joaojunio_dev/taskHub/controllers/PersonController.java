@@ -20,28 +20,43 @@ public class PersonController {
         produces = {
             MediaType.APPLICATION_JSON,
             MediaType.APPLICATION_XML,
-            MediaType.APPLICATION_YAML})
+            MediaType.APPLICATION_YAML })
     public ResponseEntity<List<PersonDTO>> findAll() {
         return ResponseEntity.ok().body(service.findAll());
     }
 
     @GetMapping(
         value = "/{id}",
-        produces = MediaType.APPLICATION_JSON)
+        produces = {
+            MediaType.APPLICATION_JSON,
+            MediaType.APPLICATION_XML,
+            MediaType.APPLICATION_YAML })
     public ResponseEntity<PersonDTO> findById(@PathVariable Long id) {
         return ResponseEntity.ok().body(service.findById(id));
     }
 
     @PostMapping(
-        consumes = MediaType.APPLICATION_JSON,
-        produces = MediaType.APPLICATION_JSON)
+        consumes = {
+            MediaType.APPLICATION_JSON,
+            MediaType.APPLICATION_XML,
+            MediaType.APPLICATION_YAML },
+        produces = {
+            MediaType.APPLICATION_JSON,
+            MediaType.APPLICATION_XML,
+            MediaType.APPLICATION_YAML })
     public ResponseEntity<PersonDTO> create(@RequestBody PersonDTO personDTO) {
         return ResponseEntity.ok().body(service.create(personDTO));
     }
 
     @PutMapping(
-        consumes = MediaType.APPLICATION_JSON,
-        produces = MediaType.APPLICATION_JSON)
+        consumes = {
+            MediaType.APPLICATION_JSON,
+            MediaType.APPLICATION_XML,
+            MediaType.APPLICATION_YAML },
+        produces = {
+            MediaType.APPLICATION_JSON,
+            MediaType.APPLICATION_XML,
+            MediaType.APPLICATION_YAML })
     public ResponseEntity<PersonDTO> update(@RequestBody PersonDTO personDTO) {
         return ResponseEntity.ok().body(service.update(personDTO));
     }
