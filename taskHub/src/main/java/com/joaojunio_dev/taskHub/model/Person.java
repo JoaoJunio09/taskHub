@@ -2,10 +2,7 @@ package com.joaojunio_dev.taskHub.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
-import org.springframework.cglib.core.Local;
-
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.Objects;
 
 @Entity
@@ -28,6 +25,9 @@ public class Person {
 
     @Column(length = 11)
     private String phone;
+
+    @OneToOne(mappedBy = "person")
+    private User user;
 
     public Person() {}
 

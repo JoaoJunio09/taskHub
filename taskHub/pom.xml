@@ -30,6 +30,7 @@
 		<java.version>17</java.version>
 		<mysql.version>9.0.0</mysql.version>
 		<hateoas.version>9.0.0</hateoas.version>
+		<java-jwt.version>4.4.0</java-jwt.version>
 	</properties>
 	<dependencies>
 		<!-- SPRING -->
@@ -84,6 +85,17 @@
 			<groupId>com.github.dozermapper</groupId>
 			<artifactId>dozer-core</artifactId>
 			<version>7.0.0</version>
+		</dependency>
+
+		<!-- SPRING SECURITY AND JWT -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.auth0</groupId>
+			<artifactId>java-jwt</artifactId>
+			<version>${java-jwt.version}</version>
 		</dependency>
 
 		<!-- TESTS -->
