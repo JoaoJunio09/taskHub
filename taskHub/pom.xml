@@ -6,7 +6,7 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>4.0.0</version>
-		<relativePath/> <!-- lookup parent from repository -->W
+		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.joaojuniodev</groupId>
 	<artifactId>taskHub</artifactId>
@@ -30,6 +30,7 @@
 		<java.version>17</java.version>
 		<mysql.version>9.0.0</mysql.version>
 		<hateoas.version>9.0.0</hateoas.version>
+		<java-jwt.version>4.4.0</java-jwt.version>
 	</properties>
 	<dependencies>
 		<!-- SPRING -->
@@ -44,6 +45,17 @@
 		<dependency>
 			<groupId>org.springframework.hateoas</groupId>
 			<artifactId>spring-hateoas</artifactId>
+		</dependency>
+
+		<!-- SPRING SECURITY AND JWT -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.auth0</groupId>
+			<artifactId>java-jwt</artifactId>
+			<version>${java-jwt.version}</version>
 		</dependency>
 
 		<!-- DATABASE MYSQL -->
