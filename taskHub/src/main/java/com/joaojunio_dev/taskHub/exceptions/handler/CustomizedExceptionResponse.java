@@ -1,12 +1,11 @@
 package com.joaojunio_dev.taskHub.exceptions.handler;
 
 import com.joaojunio_dev.taskHub.exceptions.ExceptionResponse;
+import com.joaojunio_dev.taskHub.exceptions.InvalidJwtAuthenticationException;
 import com.joaojunio_dev.taskHub.exceptions.NotFoundException;
 import com.joaojunio_dev.taskHub.exceptions.ObjectIsNullException;
-import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.WebRequest;
@@ -44,6 +43,16 @@ public class CustomizedExceptionResponse {
             new Date()
         );
         return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(InvalidJwtAuthenticationException.class)
+    public ResponseEntity<ExceptionResponse> notFoundExceptionHandler(InvalidJwtAuthenticationException ex, WebRequest request) {
+        ExceptionResponse exceptionResponse = new ExceptionResponse(
+            ex.getMessage(),
+            request.getDescription(true),
+            new Date()
+        );
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.FORBIDDEN);
     }
 
 }
