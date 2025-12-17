@@ -26,7 +26,6 @@ public class User implements UserDetails {
     @Column(name = "full_name")
     private String fullname;
 
-    @Column
     @OneToOne(mappedBy = "user")
     private Person person;
 
@@ -64,7 +63,7 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of();
+        return this.permissions;
     }
 
     public List<String> getRoles() {
@@ -159,12 +158,13 @@ public class User implements UserDetails {
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
+
         User user = (User) o;
-        return Objects.equals(getId(), user.getId()) && Objects.equals(getPassword(), user.getPassword()) && Objects.equals(getFullname(), user.getFullname()) && Objects.equals(getPerson(), user.getPerson()) && Objects.equals(getAccountNonExpired(), user.getAccountNonExpired()) && Objects.equals(getAccountNonLocked(), user.getAccountNonLocked()) && Objects.equals(getCredentialsNonExpired(), user.getCredentialsNonExpired()) && Objects.equals(getEnabled(), user.getEnabled()) && Objects.equals(getPermissions(), user.getPermissions());
+        return Objects.equals(getId(), user.getId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getPassword(), getFullname(), getPerson(), getAccountNonExpired(), getAccountNonLocked(), getCredentialsNonExpired(), getEnabled(), getPermissions());
+        return Objects.hashCode(getId());
     }
 }

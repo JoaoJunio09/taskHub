@@ -13,3 +13,8 @@ spring:
       hibernate:
     show-sql: false
     open-in-view: false
+security:
+  jwt:
+    token:
+      secret-key: 57cr37
+      expire-length: 3600000

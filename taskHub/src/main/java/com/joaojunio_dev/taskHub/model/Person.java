@@ -29,6 +29,10 @@ public class Person {
     @Column(length = 11)
     private String phone;
 
+    @OneToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
     public Person() {}
 
     public Person(Long id, String firstName, String lastName, LocalDate birthDate, String phone) {
@@ -79,15 +83,24 @@ public class Person {
         this.phone = phone;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
+
         Person person = (Person) o;
-        return Objects.equals(getId(), person.getId()) && Objects.equals(getFirstName(), person.getFirstName()) && Objects.equals(getLastName(), person.getLastName()) && Objects.equals(getBirthDate(), person.getBirthDate()) && Objects.equals(getPhone(), person.getPhone());
+        return getId().equals(person.getId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getFirstName(), getLastName(), getBirthDate(), getPhone());
+        return getId().hashCode();
     }
 }
