@@ -1,17 +1,20 @@
 package com.joaojunio_dev.taskHub.controllers;
 
+import com.joaojunio_dev.taskHub.controllers.docs.PersonControllerDocs;
 import com.joaojunio_dev.taskHub.data.dto.PersonDTO;
 import com.joaojunio_dev.taskHub.mediatype.MediaType;
 import com.joaojunio_dev.taskHub.services.PersonService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Tag(name = "Person")
 @RestController
 @RequestMapping("/person")
-public class PersonController {
+public class PersonController implements PersonControllerDocs {
 
     @Autowired
     private PersonService service;
@@ -20,7 +23,8 @@ public class PersonController {
         produces = {
             MediaType.APPLICATION_JSON,
             MediaType.APPLICATION_XML,
-            MediaType.APPLICATION_YAML })
+            MediaType.APPLICATION_YAML})
+    @Override
     public ResponseEntity<List<PersonDTO>> findAll() {
         return ResponseEntity.ok().body(service.findAll());
     }
@@ -30,7 +34,8 @@ public class PersonController {
         produces = {
             MediaType.APPLICATION_JSON,
             MediaType.APPLICATION_XML,
-            MediaType.APPLICATION_YAML })
+            MediaType.APPLICATION_YAML})
+    @Override
     public ResponseEntity<PersonDTO> findById(@PathVariable Long id) {
         return ResponseEntity.ok().body(service.findById(id));
     }
@@ -39,11 +44,12 @@ public class PersonController {
         consumes = {
             MediaType.APPLICATION_JSON,
             MediaType.APPLICATION_XML,
-            MediaType.APPLICATION_YAML },
+            MediaType.APPLICATION_YAML},
         produces = {
             MediaType.APPLICATION_JSON,
             MediaType.APPLICATION_XML,
-            MediaType.APPLICATION_YAML })
+            MediaType.APPLICATION_YAML})
+    @Override
     public ResponseEntity<PersonDTO> create(@RequestBody PersonDTO personDTO) {
         return ResponseEntity.ok().body(service.create(personDTO));
     }
@@ -52,16 +58,18 @@ public class PersonController {
         consumes = {
             MediaType.APPLICATION_JSON,
             MediaType.APPLICATION_XML,
-            MediaType.APPLICATION_YAML },
+            MediaType.APPLICATION_YAML},
         produces = {
             MediaType.APPLICATION_JSON,
             MediaType.APPLICATION_XML,
-            MediaType.APPLICATION_YAML })
+            MediaType.APPLICATION_YAML})
+    @Override
     public ResponseEntity<PersonDTO> update(@RequestBody PersonDTO personDTO) {
         return ResponseEntity.ok().body(service.update(personDTO));
     }
 
     @DeleteMapping(value = "/{id}")
+    @Override
     public ResponseEntity<?> delete(@PathVariable Long id) {
         service.delete(id);
         return ResponseEntity.noContent().build();
