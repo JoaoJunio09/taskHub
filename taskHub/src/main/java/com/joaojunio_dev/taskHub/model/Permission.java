@@ -1,7 +1,6 @@
 package com.joaojunio_dev.taskHub.model;
 
 import jakarta.persistence.*;
-import org.jspecify.annotations.Nullable;
 import org.springframework.security.core.GrantedAuthority;
 
 import java.io.Serializable;
@@ -41,7 +40,7 @@ public class Permission implements GrantedAuthority, Serializable {
     }
 
     @Override
-    public @Nullable String getAuthority() {
+    public String getAuthority() {
         return "";
     }
 }
