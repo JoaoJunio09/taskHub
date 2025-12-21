@@ -33,6 +33,9 @@ public class Person {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
+    @OneToOne(mappedBy = "person")
+    private Task task;
+
     public Person() {}
 
     public Person(Long id, String firstName, String lastName, LocalDate birthDate, String phone) {
