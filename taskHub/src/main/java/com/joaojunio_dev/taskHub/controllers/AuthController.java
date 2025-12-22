@@ -6,6 +6,8 @@ import com.joaojunio_dev.taskHub.services.AuthService;
 import io.micrometer.common.util.StringUtils;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.coyote.Response;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,10 +18,12 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class AuthController {
 
+    private final Logger logger = LoggerFactory.getLogger(AuthController.class.getName());
+
     @Autowired
     private AuthService service;
 
-    @PostMapping("/signin")
+    @PostMapping("/sign")
     public ResponseEntity<?> signIn(@RequestBody AccountCredentialsDTO credentials) {
         if (credentialsIsInvalid(credentials)) return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Invalid client request");
         var token = service.signIn(credentials);

@@ -2,11 +2,9 @@ package com.joaojunio_dev.taskHub.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
-import org.springframework.cglib.core.Local;
 
 import java.time.LocalDate;
-import java.util.Date;
-import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "tb_person")
@@ -33,8 +31,8 @@ public class Person {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @OneToOne(mappedBy = "person")
-    private Task task;
+    @OneToMany(mappedBy = "person", fetch = FetchType.EAGER)
+    private Set<Task> tasks;
 
     public Person() {}
 
@@ -92,6 +90,14 @@ public class Person {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Set<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(Set<Task> tasks) {
+        this.tasks = tasks;
     }
 
     @Override

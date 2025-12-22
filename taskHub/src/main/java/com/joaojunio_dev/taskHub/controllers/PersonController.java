@@ -13,7 +13,7 @@ import java.util.List;
 
 @Tag(name = "Person")
 @RestController
-@RequestMapping("/person")
+@RequestMapping("/api/v1/person")
 public class PersonController implements PersonControllerDocs {
 
     @Autowired

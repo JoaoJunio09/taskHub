@@ -6,6 +6,8 @@ import com.joaojunio_dev.taskHub.exceptions.ObjectIsNullException;
 import com.joaojunio_dev.taskHub.model.User;
 import com.joaojunio_dev.taskHub.repositories.UserRepository;
 import com.joaojunio_dev.taskHub.security.JwtTokenProvider;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -22,6 +24,8 @@ import java.util.Map;
 @Service
 public class AuthService {
 
+    private final Logger logger = LoggerFactory.getLogger(AuthService.class.getName());
+
     @Autowired
     private AuthenticationManager authenticationManager;
 
@@ -32,6 +36,9 @@ public class AuthService {
     UserRepository repository;
 
     public ResponseEntity<TokenDTO> signIn(AccountCredentialsDTO credentials) {
+
+        logger.info("Performing the login");
+
         authenticationManager.authenticate(
             new UsernamePasswordAuthenticationToken(
                 credentials.getUsername(),

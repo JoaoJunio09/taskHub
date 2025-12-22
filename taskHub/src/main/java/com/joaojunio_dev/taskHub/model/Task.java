@@ -27,7 +27,7 @@ public class Task {
     @Column
     private Boolean completed;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "person_id", nullable = false)
     private Person person;
 
