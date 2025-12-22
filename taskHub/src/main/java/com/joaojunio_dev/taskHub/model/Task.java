@@ -21,7 +21,7 @@ public class Task {
     private String description;
 
     @Column
-    @DateTimeFormat(pattern = "dd/MM/yyyy HH:ss")
+    @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
     private Date date;
 
     @Column

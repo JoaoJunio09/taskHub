@@ -20,8 +20,7 @@ public class Person {
     @Column
     private String lastName;
 
-    @Column
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
+    @Column(nullable = false)
     private LocalDate birthDate;
 
     @Column(length = 11)

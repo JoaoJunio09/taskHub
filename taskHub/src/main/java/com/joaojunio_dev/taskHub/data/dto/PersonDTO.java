@@ -13,12 +13,12 @@ public class PersonDTO extends RepresentationModel<PersonDTO> implements Seriali
     private Long id;
     private String firstName;
     private String lastName;
-    private LocalDate birthDate;
+    private String birthDate;
     private String phone;
 
     public PersonDTO() {}
 
-    public PersonDTO(Long id, String firstName, String lastName, LocalDate birthDate, String phone) {
+    public PersonDTO(Long id, String firstName, String lastName, String birthDate, String phone) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -50,11 +50,11 @@ public class PersonDTO extends RepresentationModel<PersonDTO> implements Seriali
         this.lastName = lastName;
     }
 
-    public LocalDate getBirthDate() {
+    public String getBirthDate() {
         return birthDate;
     }
 
-    public void setBirthDate(LocalDate birthDate) {
+    public void setBirthDate(String birthDate) {
         this.birthDate = birthDate;
     }
 

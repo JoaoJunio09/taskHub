@@ -36,7 +36,6 @@ public class AuthService {
     UserRepository repository;
 
     public ResponseEntity<TokenDTO> signIn(AccountCredentialsDTO credentials) {
-
         logger.info("Performing the login");
 
         authenticationManager.authenticate(

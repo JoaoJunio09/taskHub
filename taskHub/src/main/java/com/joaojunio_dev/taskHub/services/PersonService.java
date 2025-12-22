@@ -9,6 +9,7 @@ import com.joaojunio_dev.taskHub.repositories.PersonRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 
 import static com.joaojunio_dev.taskHub.mapper.ObjectMapper.parseObject;
@@ -16,6 +17,7 @@ import static com.joaojunio_dev.taskHub.mapper.ObjectMapper.parseListObjects;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -53,9 +55,9 @@ public class PersonService {
             throw new ObjectIsNullException("The Object is null");
         }
 
-        var entity = parseObject(dto, Person.class);
-        dto = parseObject(repository.save(entity), PersonDTO.class);
-        return addHateoas(dto);
+        var entity = (convertDtoToEntity(dto));
+        repository.save(entity);
+        return addHateoas(convertEntityToDto(entity));
     }
 
     public PersonDTO update(PersonDTO dto) {
@@ -66,10 +68,10 @@ public class PersonService {
             .orElseThrow(() -> new NotFoundException("Not found this ID:" + dto.getId()));
         entity.setFirstName(dto.getFirstName());
         entity.setLastName(dto.getLastName());
-        entity.setBirthDate(dto.getBirthDate());
+        entity.setBirthDate(LocalDate.parse(dto.getBirthDate()));
         entity.setPhone(dto.getPhone());
-        var person = parseObject(repository.save(entity), PersonDTO.class);
-        return addHateoas(person);
+        repository.save(entity);
+        return addHateoas(convertEntityToDto(entity));
     }
 
     public void delete(Long id) {
@@ -88,5 +90,27 @@ public class PersonService {
         dto.add(linkTo(methodOn(PersonController.class).update(dto)).withRel("update").withType("PUT"));
         dto.add(linkTo(methodOn(PersonController.class).delete(dto.getId())).withRel("delete").withType("DELETE"));
         return dto;
+    }
+
+    private static PersonDTO convertEntityToDto(Person entity) {
+        PersonDTO dto;
+        dto = new PersonDTO(
+            entity.getId(),
+            entity.getFirstName(),
+            entity.getLastName(),
+            entity.getBirthDate().toString(),
+            entity.getPhone()
+        );
+        return dto;
+    }
+
+    private static Person convertDtoToEntity(PersonDTO dto) {
+        return new Person(
+            dto.getId(),
+            dto.getFirstName(),
+            dto.getLastName(),
+            LocalDate.parse(dto.getBirthDate()),
+            dto.getPhone()
+        );
     }
 }

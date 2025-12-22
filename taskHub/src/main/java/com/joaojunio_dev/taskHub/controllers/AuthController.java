@@ -18,8 +18,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class AuthController {
 
-    private final Logger logger = LoggerFactory.getLogger(AuthController.class.getName());
-
     @Autowired
     private AuthService service;
 
