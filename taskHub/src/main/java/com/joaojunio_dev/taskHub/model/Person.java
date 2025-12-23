@@ -26,10 +26,6 @@ public class Person {
     @Column(length = 11)
     private String phone;
 
-    @OneToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
-
     @OneToMany(mappedBy = "person", fetch = FetchType.EAGER)
     private Set<Task> tasks;
 
@@ -81,14 +77,6 @@ public class Person {
 
     public void setPhone(String phone) {
         this.phone = phone;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 
     public Set<Task> getTasks() {

@@ -26,9 +26,6 @@ public class User implements UserDetails {
     @Column(name = "full_name")
     private String fullname;
 
-    @OneToOne(mappedBy = "user")
-    private Person person;
-
     @Column(name = "account_non_expired")
     private Boolean accountNonExpired;
 
@@ -105,14 +102,6 @@ public class User implements UserDetails {
 
     public void setFullname(String fullname) {
         this.fullname = fullname;
-    }
-
-    public Person getPerson() {
-        return person;
-    }
-
-    public void setPerson(Person person) {
-        this.person = person;
     }
 
     public Boolean getAccountNonExpired() {

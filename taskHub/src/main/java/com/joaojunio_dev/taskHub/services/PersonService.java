@@ -23,7 +23,7 @@ import java.util.List;
 @Service
 public class PersonService {
 
-    private final Logger logger = LoggerFactory.getLogger(PersonService.class.getName());
+    private static final Logger logger = LoggerFactory.getLogger(PersonService.class.getName());
 
     @Autowired
     PersonRepository repository;
@@ -105,6 +105,7 @@ public class PersonService {
     }
 
     private static Person convertDtoToEntity(PersonDTO dto) {
+        logger.info("Go to convert's dto to Entity");
         return new Person(
             dto.getId(),
             dto.getFirstName(),
