@@ -1,12 +1,12 @@
 package com.joaojunio_dev.taskHub.data.dto;
 
 import com.joaojunio_dev.taskHub.model.Person;
-import com.joaojunio_dev.taskHub.model.Task;
+import org.springframework.hateoas.RepresentationModel;
 
 import java.util.Date;
 import java.util.Objects;
 
-public class TaskDTO {
+public class TaskDTO extends RepresentationModel<TaskDTO> {
 
     private Long id;
     private String title;

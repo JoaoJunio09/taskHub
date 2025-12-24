@@ -9,7 +9,6 @@ import com.joaojunio_dev.taskHub.repositories.PersonRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 
 import static com.joaojunio_dev.taskHub.mapper.ObjectMapper.parseObject;
