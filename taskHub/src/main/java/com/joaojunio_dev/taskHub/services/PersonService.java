@@ -36,6 +36,14 @@ public class PersonService {
         return persons;
     }
 
+    public Person findEntityById(Long id) {
+
+        logger.info("Find a one Entity Person");
+
+        return repository.findById(id)
+            .orElseThrow(() -> new NotFoundException("Not found this ID : " + id));
+    }
+
     public PersonDTO findById(Long id) {
 
         logger.info("Find a one Person");

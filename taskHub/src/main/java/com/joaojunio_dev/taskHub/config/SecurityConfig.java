@@ -69,7 +69,7 @@ public class SecurityConfig {
                     "/auth/refresh/**",
                     "/auth/createUser",
                     "/swagger-ui/**",
-                    "/v3/api-docs/**"
+                   "/v3/api-docs/**"
                 ).permitAll()
                 .requestMatchers("/api/**").authenticated()
                 .requestMatchers("/users").denyAll()

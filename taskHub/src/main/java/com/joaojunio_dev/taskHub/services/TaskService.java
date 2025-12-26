@@ -4,6 +4,7 @@ import com.joaojunio_dev.taskHub.controllers.TaskController;
 import com.joaojunio_dev.taskHub.data.dto.TaskDTO;
 import com.joaojunio_dev.taskHub.exceptions.NotFoundException;
 import com.joaojunio_dev.taskHub.exceptions.ObjectIsNullException;
+import com.joaojunio_dev.taskHub.model.Person;
 import com.joaojunio_dev.taskHub.model.Task;
 import com.joaojunio_dev.taskHub.repositories.TaskRepository;
 import org.slf4j.Logger;
@@ -26,6 +27,9 @@ public class TaskService {
 
     @Autowired
     TaskRepository repository;
+
+    @Autowired
+    private PersonService personService;
 
     public List<TaskDTO> findAll() {
 
@@ -74,12 +78,13 @@ public class TaskService {
 
         if (task == null) throw new ObjectIsNullException("Object is null");
 
+        var person = personService.findEntityById(task.getPersonId());
         var entity = new Task();
         entity.setTitle(task.getTitle());
         entity.setDescription(task.getDescription());
         entity.setDate(task.getDate());
         entity.setCompleted(false);
-        entity.setPerson(task.getPerson());
+        entity.setPerson(person);
 
         var dto = parseObject(repository.save(entity), TaskDTO.class);
         return addHateoas(dto);
@@ -91,13 +96,14 @@ public class TaskService {
 
         if (task == null) throw new ObjectIsNullException("Object is null");
 
+        var person = personService.findEntityById(task.getPersonId());
         var entity = repository.findById(task.getId())
             .orElseThrow(() -> new NotFoundException("Not found this ID : " + task.getId()));
         entity.setTitle(task.getTitle());
         entity.setDescription(task.getDescription());
         entity.setDate(task.getDate());
         entity.setCompleted(task.getCompleted());
-        entity.setPerson(task.getPerson());
+        entity.setPerson(person);
 
         var dto = parseObject(repository.save(entity), TaskDTO.class);
         return addHateoas(dto);

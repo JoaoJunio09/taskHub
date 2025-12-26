@@ -13,16 +13,17 @@ public class TaskDTO extends RepresentationModel<TaskDTO> {
     private String description;
     private Date date;
     private Boolean completed;
-    private Person person;
+    private Long personId;
 
     public TaskDTO() {}
 
-    public TaskDTO(Boolean completed, Date date, String description, String title, Long id) {
-        this.completed = completed;
-        this.date = date;
-        this.description = description;
-        this.title = title;
+    public TaskDTO(Long id, String title, String description, Date date, Boolean completed, Long personId) {
         this.id = id;
+        this.title = title;
+        this.description = description;
+        this.date = date;
+        this.completed = completed;
+        this.personId = personId;
     }
 
     public Long getId() {
@@ -65,12 +66,12 @@ public class TaskDTO extends RepresentationModel<TaskDTO> {
         this.completed = completed;
     }
 
-    public Person getPerson() {
-        return person;
+    public Long getPersonId() {
+        return personId;
     }
 
-    public void setPerson(Person person) {
-        this.person = person;
+    public void setPersonId(Long personId) {
+        this.personId = personId;
     }
 
     @Override
