@@ -5,6 +5,7 @@ import com.joaojunio_dev.taskHub.data.dto.TaskDTO;
 import com.joaojunio_dev.taskHub.exceptions.NotFoundException;
 import com.joaojunio_dev.taskHub.exceptions.ObjectIsNullException;
 import com.joaojunio_dev.taskHub.model.Task;
+import com.joaojunio_dev.taskHub.model.enums.ThisDateOrPreviousOrLater;
 import com.joaojunio_dev.taskHub.repositories.TaskRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -57,7 +58,7 @@ public class TaskService {
     public List<TaskDTO> findByPersonId(Long personId) {
 
         logger.info("Finding Task's by Person Id");
-        
+
         var dtos = repository.findByPersonId(personId)
             .stream()
             .map(this::convertEntityToDTO)
@@ -70,14 +71,36 @@ public class TaskService {
 
         logger.info("Finding Task's by Task Completed");
 
-        return null;
+        var dtos = repository.findByCompleted(completed)
+            .stream()
+            .map(this::convertEntityToDTO)
+            .toList();
+        dtos.forEach(this::addHateoas);
+        return dtos;
     }
 
-    public List<TaskDTO> findByDate(LocalDate date) {
+    public List<TaskDTO> findByDate(LocalDate date, ThisDateOrPreviousOrLater type) {
 
         logger.info("Finding Task's by Date");
 
-        return null;
+        List<Task> tasks;
+
+        if (type == ThisDateOrPreviousOrLater.THIS_DATE) {
+            tasks = repository.findByDate(date.atStartOfDay(), date.plusDays(1).atStartOfDay());
+        } else if (type == ThisDateOrPreviousOrLater.PREVIOUS_DATE) {
+            tasks = repository.findByDateBefore(date.atStartOfDay());
+        } else if (type == ThisDateOrPreviousOrLater.LATER_DATE) {
+            tasks = repository.findByDateAfter(date.plusDays(1).atStartOfDay());
+        } else {
+            throw new IllegalArgumentException("Invalid search type");
+        }
+
+        var dtos = tasks
+            .stream()
+            .map(this::convertEntityToDTO)
+            .toList();
+        dtos.forEach(this::addHateoas);
+        return dtos;
     }
 
     public TaskDTO create(TaskDTO task) {

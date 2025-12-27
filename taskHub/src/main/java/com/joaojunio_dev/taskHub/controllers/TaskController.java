@@ -3,12 +3,15 @@ package com.joaojunio_dev.taskHub.controllers;
 import com.joaojunio_dev.taskHub.controllers.docs.TaskControllerDocs;
 import com.joaojunio_dev.taskHub.data.dto.TaskDTO;
 import com.joaojunio_dev.taskHub.mediatype.MediaType;
+import com.joaojunio_dev.taskHub.model.enums.ThisDateOrPreviousOrLater;
 import com.joaojunio_dev.taskHub.services.TaskService;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Tag(name = "Task")
@@ -52,6 +55,32 @@ public class TaskController implements TaskControllerDocs {
     @Override
     public ResponseEntity<List<TaskDTO>> findByPersonId(@PathVariable Long personId) {
         return ResponseEntity.ok().body(service.findByPersonId(personId));
+    }
+
+    @GetMapping(
+        value = "/findByCompleted/{completed}",
+        produces = {
+            MediaType.APPLICATION_JSON,
+            MediaType.APPLICATION_XML,
+            MediaType.APPLICATION_YAML}
+    )
+    @Override
+    public ResponseEntity<List<TaskDTO>> findByCompleted(@PathVariable Boolean completed) {
+        return ResponseEntity.ok().body(service.findByCompleted(completed));
+    }
+
+    @GetMapping(
+        value = "/findByDate",
+        produces = {
+            MediaType.APPLICATION_JSON,
+            MediaType.APPLICATION_XML,
+            MediaType.APPLICATION_YAML}
+    )
+    @Override
+    public ResponseEntity<List<TaskDTO>> findByDate(
+        @PathParam("date") LocalDate date,
+        @PathParam("type")ThisDateOrPreviousOrLater type) {
+        return ResponseEntity.ok().body(service.findByDate(date, type));
     }
 
     @PostMapping(
