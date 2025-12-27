@@ -1,9 +1,6 @@
 package com.joaojunio_dev.taskHub.exceptions.handler;
 
-import com.joaojunio_dev.taskHub.exceptions.ExceptionResponse;
-import com.joaojunio_dev.taskHub.exceptions.InvalidJwtAuthenticationException;
-import com.joaojunio_dev.taskHub.exceptions.NotFoundException;
-import com.joaojunio_dev.taskHub.exceptions.ObjectIsNullException;
+import com.joaojunio_dev.taskHub.exceptions.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -36,7 +33,7 @@ public class CustomizedExceptionResponse {
     }
 
     @ExceptionHandler(ObjectIsNullException.class)
-    public ResponseEntity<ExceptionResponse> notFoundExceptionHandler(ObjectIsNullException ex, WebRequest request) {
+    public ResponseEntity<ExceptionResponse> objectIsNullExceptionHandler(ObjectIsNullException ex, WebRequest request) {
         ExceptionResponse exceptionResponse = new ExceptionResponse(
             ex.getMessage(),
             request.getDescription(true),
@@ -46,13 +43,23 @@ public class CustomizedExceptionResponse {
     }
 
     @ExceptionHandler(InvalidJwtAuthenticationException.class)
-    public ResponseEntity<ExceptionResponse> notFoundExceptionHandler(InvalidJwtAuthenticationException ex, WebRequest request) {
+    public ResponseEntity<ExceptionResponse> invalidJwtAuthenticationExceptionHandler(InvalidJwtAuthenticationException ex, WebRequest request) {
         ExceptionResponse exceptionResponse = new ExceptionResponse(
             ex.getMessage(),
             request.getDescription(true),
             new Date()
         );
         return new ResponseEntity<>(exceptionResponse, HttpStatus.FORBIDDEN);
+    }
+
+    @ExceptionHandler(InvalidTypeOfDateException.class)
+    public ResponseEntity<ExceptionResponse> invalidTypeOfDateExceptionHandler(InvalidTypeOfDateException ex, WebRequest request) {
+        ExceptionResponse exceptionResponse = new ExceptionResponse(
+                ex.getMessage(),
+                request.getDescription(true),
+                new Date()
+        );
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
     }
 
 }

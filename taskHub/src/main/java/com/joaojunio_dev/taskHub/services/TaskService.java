@@ -2,6 +2,7 @@ package com.joaojunio_dev.taskHub.services;
 
 import com.joaojunio_dev.taskHub.controllers.TaskController;
 import com.joaojunio_dev.taskHub.data.dto.TaskDTO;
+import com.joaojunio_dev.taskHub.exceptions.InvalidTypeOfDateException;
 import com.joaojunio_dev.taskHub.exceptions.NotFoundException;
 import com.joaojunio_dev.taskHub.exceptions.ObjectIsNullException;
 import com.joaojunio_dev.taskHub.model.Task;
@@ -92,7 +93,7 @@ public class TaskService {
         } else if (type == ThisDateOrPreviousOrLater.LATER_DATE) {
             tasks = repository.findByDateAfter(date.plusDays(1).atStartOfDay());
         } else {
-            throw new IllegalArgumentException("Invalid search type");
+            throw new InvalidTypeOfDateException("Invalid type for search date!");
         }
 
         var dtos = tasks
