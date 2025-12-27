@@ -42,6 +42,18 @@ public class TaskController implements TaskControllerDocs {
         return ResponseEntity.ok().body(service.findById(id));
     }
 
+    @GetMapping(
+        value = "/findByPersonId/{personId}",
+        produces = {
+            MediaType.APPLICATION_JSON,
+            MediaType.APPLICATION_XML,
+            MediaType.APPLICATION_YAML}
+    )
+    @Override
+    public ResponseEntity<List<TaskDTO>> findByPersonId(@PathVariable Long personId) {
+        return ResponseEntity.ok().body(service.findByPersonId(personId));
+    }
+
     @PostMapping(
         consumes = {
             MediaType.APPLICATION_JSON,

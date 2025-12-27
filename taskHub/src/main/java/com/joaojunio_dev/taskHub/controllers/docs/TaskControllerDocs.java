@@ -51,6 +51,23 @@ public interface TaskControllerDocs {
 
     @Operation(
         tags = {"Task"},
+        summary = "Find one Task by Person Id",
+        description = "Find one Task by Person Id",
+        responses = {
+            @ApiResponse(
+                responseCode = "200", description = "Success", content = @Content(
+                mediaType = MediaType.APPLICATION_JSON)),
+            @ApiResponse(responseCode = "404", description = "Not Found", content = @Content),
+            @ApiResponse(responseCode = "400", description = "Bad Request", content = @Content),
+            @ApiResponse(responseCode = "401", description = "Unauthorized", content = @Content),
+            @ApiResponse(responseCode = "204", description = "No Content", content = @Content),
+            @ApiResponse(responseCode = "500", description = "Internal Server Error", content = @Content),
+        }
+    )
+    ResponseEntity<List<TaskDTO>> findByPersonId(@PathVariable Long personId);
+
+    @Operation(
+        tags = {"Task"},
         summary = "Create a one Task",
         description = "Create a one Task",
         responses = {

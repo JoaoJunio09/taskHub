@@ -1,6 +1,5 @@
 package com.joaojunio_dev.taskHub.repositories;
 
-import com.joaojunio_dev.taskHub.data.dto.TaskDTO;
 import com.joaojunio_dev.taskHub.model.Task;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -13,12 +12,12 @@ import java.util.List;
 @Repository
 public interface TaskRepository extends JpaRepository<Task, Long> {
 
-    @Query("")
-    List<TaskDTO> findByPersonId(@Param("personId") Long personId);
+    @Query("SELECT t FROM Task t WHERE t.person.id =:personId")
+    List<Task> findByPersonId(@Param("personId") Long personId);
 
     @Query("")
-    List<TaskDTO> findByCompleted(@Param("completed") boolean completed);
+    List<Task> findByCompleted(@Param("completed") boolean completed);
 
     @Query("")
-    List<TaskDTO> findByDate(@Param("date") LocalDate date);
+    List<Task> findByDate(@Param("date") LocalDate date);
 }

@@ -57,8 +57,13 @@ public class TaskService {
     public List<TaskDTO> findByPersonId(Long personId) {
 
         logger.info("Finding Task's by Person Id");
-
-        return null;
+        
+        var dtos = repository.findByPersonId(personId)
+            .stream()
+            .map(this::convertEntityToDTO)
+            .toList();
+        dtos.forEach(this::addHateoas);
+        return dtos;
     }
 
     public List<TaskDTO> findByCompleted(Boolean completed) {
