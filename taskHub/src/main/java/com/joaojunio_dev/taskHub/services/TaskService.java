@@ -82,8 +82,6 @@ public class TaskService {
         if (task == null) throw new ObjectIsNullException("Object is null");
 
         var person = personService.findEntityById(task.getPersonId());
-        if (person == null) throw new ObjectIsNullException("Person is null");
-
         var entity = new Task();
         entity.setTitle(task.getTitle());
         entity.setDescription(task.getDescription());
@@ -136,6 +134,9 @@ public class TaskService {
     private TaskDTO addHateoas(TaskDTO dto) {
         dto.add(linkTo(methodOn(TaskController.class).findById(dto.getId())).withSelfRel().withType("GET"));
         dto.add(linkTo(methodOn(TaskController.class).findAll()).withRel("findAll").withType("GET"));
+        dto.add(linkTo(methodOn(TaskController.class).create(dto)).withRel("create").withType("POST"));
+        dto.add(linkTo(methodOn(TaskController.class).update(dto)).withRel("update").withType("PUT"));
+        dto.add(linkTo(methodOn(TaskController.class).delete(dto.getId())).withRel("delete").withType("DELETE"));
         return dto;
     }
 }
