@@ -1,8 +1,8 @@
 package com.joaojunio_dev.taskHub.data.dto;
 
-import com.joaojunio_dev.taskHub.model.Person;
 import org.springframework.hateoas.RepresentationModel;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Objects;
 
@@ -11,13 +11,13 @@ public class TaskDTO extends RepresentationModel<TaskDTO> {
     private Long id;
     private String title;
     private String description;
-    private Date date;
+    private LocalDateTime date;
     private Boolean completed;
     private Long personId;
 
     public TaskDTO() {}
 
-    public TaskDTO(Long id, String title, String description, Date date, Boolean completed, Long personId) {
+    public TaskDTO(Long id, String title, String description, LocalDateTime date, Boolean completed, Long personId) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -50,11 +50,11 @@ public class TaskDTO extends RepresentationModel<TaskDTO> {
         this.description = description;
     }
 
-    public Date getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 

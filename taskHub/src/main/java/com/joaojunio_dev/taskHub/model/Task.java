@@ -3,6 +3,7 @@ package com.joaojunio_dev.taskHub.model;
 import jakarta.persistence.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Objects;
 
@@ -21,8 +22,7 @@ public class Task {
     private String description;
 
     @Column
-    @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm:ss")
-    private Date date;
+    private LocalDateTime date;
 
     @Column
     private Boolean completed;
@@ -33,7 +33,7 @@ public class Task {
 
     public Task() {}
 
-    public Task(Boolean completed, Date date, String description, String title, Long id) {
+    public Task(Boolean completed, LocalDateTime date, String description, String title, Long id) {
         this.completed = completed;
         this.date = date;
         this.description = description;
@@ -65,11 +65,11 @@ public class Task {
         this.description = description;
     }
 
-    public Date getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 

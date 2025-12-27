@@ -4,7 +4,6 @@ import com.joaojunio_dev.taskHub.controllers.TaskController;
 import com.joaojunio_dev.taskHub.data.dto.TaskDTO;
 import com.joaojunio_dev.taskHub.exceptions.NotFoundException;
 import com.joaojunio_dev.taskHub.exceptions.ObjectIsNullException;
-import com.joaojunio_dev.taskHub.model.Person;
 import com.joaojunio_dev.taskHub.model.Task;
 import com.joaojunio_dev.taskHub.repositories.TaskRepository;
 import org.slf4j.Logger;
@@ -18,6 +17,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -35,7 +35,10 @@ public class TaskService {
 
         logger.info("Finding All Task's");
 
-        var dtos = parseListObjects(repository.findAll(), TaskDTO.class);
+        var dtos = repository.findAll()
+            .stream()
+            .map(this::convertEntityToDTO)
+            .toList();
         dtos.forEach(this::addHateoas);
         return dtos;
     }
@@ -47,7 +50,7 @@ public class TaskService {
         var entity = repository.findById(id)
             .orElseThrow(() -> new NotFoundException("Not found this ID : " + id));
 
-        var dto = parseObject(entity, TaskDTO.class);
+        var dto = convertEntityToDTO(entity);
         return addHateoas(dto);
     }
 
@@ -79,14 +82,16 @@ public class TaskService {
         if (task == null) throw new ObjectIsNullException("Object is null");
 
         var person = personService.findEntityById(task.getPersonId());
+        if (person == null) throw new ObjectIsNullException("Person is null");
+
         var entity = new Task();
         entity.setTitle(task.getTitle());
         entity.setDescription(task.getDescription());
-        entity.setDate(task.getDate());
+        entity.setDate(LocalDateTime.now());
         entity.setCompleted(false);
         entity.setPerson(person);
 
-        var dto = parseObject(repository.save(entity), TaskDTO.class);
+        var dto = convertEntityToDTO(entity);
         return addHateoas(dto);
     }
 
@@ -101,11 +106,10 @@ public class TaskService {
             .orElseThrow(() -> new NotFoundException("Not found this ID : " + task.getId()));
         entity.setTitle(task.getTitle());
         entity.setDescription(task.getDescription());
-        entity.setDate(task.getDate());
         entity.setCompleted(task.getCompleted());
         entity.setPerson(person);
 
-        var dto = parseObject(repository.save(entity), TaskDTO.class);
+        var dto = convertEntityToDTO(entity);
         return addHateoas(dto);
     }
 
@@ -116,6 +120,17 @@ public class TaskService {
         var entity = repository.findById(id)
             .orElseThrow(() -> new NotFoundException("Not found this ID : " + id));
         repository.delete(entity);
+    }
+
+    private TaskDTO convertEntityToDTO(Task entity) {
+       return new TaskDTO(
+            entity.getId(),
+            entity.getTitle(),
+            entity.getDescription(),
+            entity.getDate(),
+            entity.getCompleted(),
+            entity.getPerson().getId()
+        );
     }
 
     private TaskDTO addHateoas(TaskDTO dto) {
