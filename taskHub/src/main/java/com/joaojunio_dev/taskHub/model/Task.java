@@ -5,7 +5,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "tb_tasks")
@@ -30,6 +32,9 @@ public class Task {
     @ManyToOne
     @JoinColumn(name = "person_id", nullable = false)
     private Person person;
+
+    @OneToMany(mappedBy = "task", cascade = CascadeType.ALL)
+    private Set<Notification> notifications = new HashSet<>();
 
     public Task() {}
 
@@ -87,6 +92,14 @@ public class Task {
 
     public void setPerson(Person person) {
         this.person = person;
+    }
+
+    public Set<Notification> getNotifications() {
+        return notifications;
+    }
+
+    public void setNotifications(Set<Notification> notifications) {
+        this.notifications = notifications;
     }
 
     @Override

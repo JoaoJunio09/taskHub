@@ -1,6 +1,5 @@
 package com.joaojunio_dev.taskHub.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
