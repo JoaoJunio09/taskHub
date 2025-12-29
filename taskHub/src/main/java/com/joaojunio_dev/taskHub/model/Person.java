@@ -28,6 +28,9 @@ public class Person {
     @OneToMany(mappedBy = "person", fetch = FetchType.EAGER)
     private Set<Task> tasks;
 
+    @OneToMany(mappedBy = "person", cascade = CascadeType.ALL)
+    private PushSubscription pushSubscription;
+
     public Person() {}
 
     public Person(Long id, String firstName, String lastName, LocalDate birthDate, String phone) {
