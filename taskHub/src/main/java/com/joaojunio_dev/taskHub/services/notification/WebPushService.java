@@ -1,4 +1,4 @@
-package com.joaojunio_dev.taskHub.services;
+package com.joaojunio_dev.taskHub.services.notification;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.joaojunio_dev.taskHub.data.dto.notification.NotificationPayloadDTO;
@@ -10,6 +10,7 @@ import nl.martijndwars.webpush.PushService;
 import nl.martijndwars.webpush.Subscription;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -17,6 +18,7 @@ public class WebPushService {
 
     private final static Logger logger = LoggerFactory.getLogger(WebPushService.class.getName());
 
+    @Autowired
     private final PushService service;
 
     public WebPushService(PushService service) {
@@ -42,6 +44,7 @@ public class WebPushService {
             service.send(notification);
         }
         catch (Exception e) {
+            e.printStackTrace();
             throw new IsNotPossibleSendNotificationException("There was an error sending the notification to the client!");
         }
     }
