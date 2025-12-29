@@ -62,4 +62,14 @@ public class CustomizedExceptionResponse {
         return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(IsNotPossibleSendNotificationException.class)
+    public ResponseEntity<ExceptionResponse> notPossibleSendNotificationExceptionHandler(IsNotPossibleSendNotificationException ex, WebRequest request) {
+        ExceptionResponse exceptionResponse = new ExceptionResponse(
+                ex.getMessage(),
+                request.getDescription(true),
+                new Date()
+        );
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
+    }
+
 }
