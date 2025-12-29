@@ -1,34 +1,21 @@
-package com.joaojunio_dev.taskHub.model;
+package com.joaojunio_dev.taskHub.data.dto.notification;
 
 import com.joaojunio_dev.taskHub.data.dto.TaskDTO;
-import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-@Entity
-@Table
-public class Notification {
+public class NotificationDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column
     private String message;
-
-    @Column
     private LocalDateTime scheduledAt;
-
-    @Column
     private Boolean send = false;
+    private TaskDTO task;
 
-    @ManyToOne(optional = false)
-    private Task task;
+    public NotificationDTO() {}
 
-    public Notification() {}
-
-    public Notification(Long id, String message, LocalDateTime scheduledAt, Task task) {
+    public NotificationDTO(Long id, String message, LocalDateTime scheduledAt, TaskDTO task) {
         this.id = id;
         this.message = message;
         this.scheduledAt = scheduledAt;
@@ -67,11 +54,11 @@ public class Notification {
         this.send = send;
     }
 
-    public Task getTask() {
+    public TaskDTO getTask() {
         return task;
     }
 
-    public void setTask(Task task) {
+    public void setTask(TaskDTO task) {
         this.task = task;
     }
 
@@ -79,7 +66,7 @@ public class Notification {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
 
-        Notification that = (Notification) o;
+        NotificationDTO that = (NotificationDTO) o;
         return Objects.equals(getId(), that.getId());
     }
 

@@ -1,10 +1,16 @@
 package com.joaojunio_dev.taskHub.services.notification;
 
+import com.joaojunio_dev.taskHub.data.dto.TaskDTO;
+import com.joaojunio_dev.taskHub.data.dto.notification.NotificationDTO;
 import com.joaojunio_dev.taskHub.data.dto.notification.NotificationPayloadDTO;
+import com.joaojunio_dev.taskHub.exceptions.ObjectIsNullException;
 import com.joaojunio_dev.taskHub.model.Notification;
 import com.joaojunio_dev.taskHub.model.PushSubscription;
+import com.joaojunio_dev.taskHub.model.Task;
 import com.joaojunio_dev.taskHub.repositories.NotificationRepository;
 import com.joaojunio_dev.taskHub.repositories.PushSubscriptionRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +19,8 @@ import java.util.List;
 
 @Service
 public class NotificationService {
+
+    private final static Logger logger = LoggerFactory.getLogger(NotificationService.class.getName());
 
     @Autowired
     private final NotificationRepository notificationRepository;
@@ -50,5 +58,44 @@ public class NotificationService {
             notification.setSend(true);
             notificationRepository.save(notification);
         }
+    }
+
+    public NotificationDTO create(NotificationDTO notification) {
+
+        logger.info("Creating a one Notofication");
+
+        if (notification == null) throw new ObjectIsNullException("Object is null");
+        return convertEntityToDTO(notificationRepository.save(convertDtoToEntity(notification)));
+    }
+
+    private Notification convertDtoToEntity(NotificationDTO dto) {
+        return new Notification(
+            dto.getId(),
+            dto.getMessage(),
+            dto.getScheduledAt(),
+            new Task(
+                dto.getTask().getId(),
+                dto.getTask().getCompleted(),
+                dto.getTask().getDate(),
+                dto.getTask().getDescription(),
+                dto.getTask().getTitle()
+            )
+        );
+    }
+
+    private NotificationDTO convertEntityToDTO(Notification entity) {
+        return new NotificationDTO(
+            entity.getId(),
+            entity.getMessage(),
+            entity.getScheduledAt(),
+            new TaskDTO(
+                entity.getTask().getId(),
+                entity.getTask().getTitle(),
+                entity.getTask().getDescription(),
+                entity.getTask().getDate(),
+                entity.getTask().getCompleted(),
+                entity.getTask().getPerson().getId()
+            )
+        );
     }
 }
