@@ -1,6 +1,5 @@
 package com.joaojunio_dev.taskHub.model;
 
-import com.joaojunio_dev.taskHub.data.dto.TaskDTO;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
