@@ -28,8 +28,8 @@ public class Person {
     @OneToMany(mappedBy = "person", fetch = FetchType.EAGER)
     private Set<Task> tasks;
 
-    @OneToMany(mappedBy = "person", cascade = CascadeType.ALL)
-    private PushSubscription pushSubscription;
+    @OneToMany(mappedBy = "person", fetch = FetchType.EAGER)
+    private Set<PushSubscription> pushSubscriptions;
 
     public Person() {}
 
@@ -87,6 +87,14 @@ public class Person {
 
     public void setTasks(Set<Task> tasks) {
         this.tasks = tasks;
+    }
+
+    public Set<PushSubscription> getPushSubscriptions() {
+        return pushSubscriptions;
+    }
+
+    public void setPushSubscriptions(Set<PushSubscription> pushSubscriptions) {
+        this.pushSubscriptions = pushSubscriptions;
     }
 
     @Override

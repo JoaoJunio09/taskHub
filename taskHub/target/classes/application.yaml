@@ -18,3 +18,8 @@ security:
     token:
       secret-key: 57cr37
       expire-length: 3600000
+web-push:
+  vapid:
+    public-key: BGkzHGbnUqBqE_2abbp0HDsFdzMdBmfA-mc7LZtKm156oXwDu8TK5Zs1BLptLpkA5D9kEjynH6K6iKPkqRWN40c
+    private-key: hNtIQfBu4lt5rFadP3wPKNQkqHV9Bf7W2e8xD-55tUo
+    subject: jotacastrotrd@gmail.com

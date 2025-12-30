@@ -46,6 +46,15 @@ public class Task {
         this.title = title;
     }
 
+    public Task(Long id, Boolean completed, LocalDateTime date, String description, String title, Person person) {
+        this.id = id;
+        this.completed = completed;
+        this.date = date;
+        this.description = description;
+        this.title = title;
+        this.person = person;
+    }
+
     public Long getId() {
         return id;
     }

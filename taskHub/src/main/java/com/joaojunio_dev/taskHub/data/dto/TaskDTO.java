@@ -3,7 +3,6 @@ package com.joaojunio_dev.taskHub.data.dto;
 import org.springframework.hateoas.RepresentationModel;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.Objects;
 
 public class TaskDTO extends RepresentationModel<TaskDTO> {

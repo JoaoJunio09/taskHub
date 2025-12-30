@@ -11,5 +11,5 @@ import java.util.List;
 public interface NotificationRepository extends JpaRepository<Notification, Long> {
 
     // Buscar as notificações passadas, ou seja, que ja se passaram pela data atual.
-    List<Notification> findBySentFalseAndScheduledAtBefore(LocalDateTime now);
+    List<Notification> findBySendFalseAndScheduledAtBefore(LocalDateTime now);
 }

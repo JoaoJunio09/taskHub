@@ -5,10 +5,12 @@ import com.joaojunio_dev.taskHub.data.dto.notification.NotificationDTO;
 import com.joaojunio_dev.taskHub.data.dto.notification.NotificationPayloadDTO;
 import com.joaojunio_dev.taskHub.exceptions.ObjectIsNullException;
 import com.joaojunio_dev.taskHub.model.Notification;
+import com.joaojunio_dev.taskHub.model.Person;
 import com.joaojunio_dev.taskHub.model.PushSubscription;
 import com.joaojunio_dev.taskHub.model.Task;
 import com.joaojunio_dev.taskHub.repositories.NotificationRepository;
 import com.joaojunio_dev.taskHub.repositories.PushSubscriptionRepository;
+import com.joaojunio_dev.taskHub.services.PersonService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,15 +33,19 @@ public class NotificationService {
     @Autowired
     private final WebPushService webPushService;
 
-    public NotificationService(NotificationRepository notificationRepository, PushSubscriptionRepository subscriptionRepository, WebPushService webPushService) {
+    @Autowired
+    private final PersonService personService;
+
+    public NotificationService(NotificationRepository notificationRepository, PushSubscriptionRepository subscriptionRepository, WebPushService webPushService, PersonService personService) {
         this.notificationRepository = notificationRepository;
         this.subscriptionRepository = subscriptionRepository;
         this.webPushService = webPushService;
+        this.personService = personService;
     }
 
     public void processPendingNotifications() {
         List<Notification> notifications = 
-            notificationRepository.findBySentFalseAndScheduledAtBefore(LocalDateTime.now());
+            notificationRepository.findBySendFalseAndScheduledAtBefore(LocalDateTime.now());
         for (Notification notification : notifications) {
 
             List<PushSubscription> subscriptions =
@@ -65,10 +71,13 @@ public class NotificationService {
         logger.info("Creating a one Notofication");
 
         if (notification == null) throw new ObjectIsNullException("Object is null");
-        return convertEntityToDTO(notificationRepository.save(convertDtoToEntity(notification)));
+
+        var person = personService.findEntityById(notification.getTask().getPersonId());
+
+        return convertEntityToDTO(notificationRepository.save(convertDtoToEntity(notification, person)));
     }
 
-    private Notification convertDtoToEntity(NotificationDTO dto) {
+    private Notification convertDtoToEntity(NotificationDTO dto, Person person) {
         return new Notification(
             dto.getId(),
             dto.getMessage(),
@@ -78,7 +87,8 @@ public class NotificationService {
                 dto.getTask().getCompleted(),
                 dto.getTask().getDate(),
                 dto.getTask().getDescription(),
-                dto.getTask().getTitle()
+                dto.getTask().getTitle(),
+                person
             )
         );
     }

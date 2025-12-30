@@ -110,13 +110,14 @@ public class TaskService {
 
         var person = personService.findEntityById(task.getPersonId());
         var entity = new Task();
+        entity.setId(task.getId());
         entity.setTitle(task.getTitle());
         entity.setDescription(task.getDescription());
         entity.setDate(LocalDateTime.now());
         entity.setCompleted(false);
         entity.setPerson(person);
 
-        var dto = convertEntityToDTO(entity);
+        var dto = convertEntityToDTO(repository.save(entity));
         return addHateoas(dto);
     }
 
@@ -134,7 +135,7 @@ public class TaskService {
         entity.setCompleted(task.getCompleted());
         entity.setPerson(person);
 
-        var dto = convertEntityToDTO(entity);
+        var dto = convertEntityToDTO(repository.save(entity));
         return addHateoas(dto);
     }
 

@@ -22,6 +22,7 @@ public class PushSubscription {
     private String auth;
 
     @ManyToOne
+    @JoinColumn(name = "person_id", nullable = false)
     private Person person;
 
     public PushSubscription() {}
