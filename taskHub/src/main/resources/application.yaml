@@ -13,6 +13,26 @@ spring:
       hibernate:
     show-sql: false
     open-in-view: false
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${EMAIL_USERNAME}
+    password: ${EMAIL_PASSWORD}
+    properties:
+      mail:
+        transport:
+          protocol: smtp
+        smtp:
+          starttls:
+            enable: true
+            required: true
+            auth: true
+            from: jotacastrotrd@gmail.com
+        default-encoding: UTF-8
+        test-connection: false
+mail:
+  from:
+    name: João Junio
 security:
   jwt:
     token:

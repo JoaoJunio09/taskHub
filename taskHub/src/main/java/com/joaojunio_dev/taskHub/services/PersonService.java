@@ -77,6 +77,7 @@ public class PersonService {
         entity.setLastName(dto.getLastName());
         entity.setBirthDate(LocalDate.parse(dto.getBirthDate()));
         entity.setPhone(dto.getPhone());
+        entity.setEmail(dto.getEmail());
         repository.save(entity);
         return addHateoas(convertEntityToDto(entity));
     }
@@ -106,7 +107,8 @@ public class PersonService {
             entity.getFirstName(),
             entity.getLastName(),
             entity.getBirthDate().toString(),
-            entity.getPhone()
+            entity.getPhone(),
+            entity.getEmail()
         );
         return dto;
     }
@@ -118,7 +120,8 @@ public class PersonService {
             dto.getFirstName(),
             dto.getLastName(),
             LocalDate.parse(dto.getBirthDate()),
-            dto.getPhone()
+            dto.getPhone(),
+            dto.getEmail()
         );
     }
 }

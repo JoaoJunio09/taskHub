@@ -25,6 +25,9 @@ public class Person {
     @Column(length = 11)
     private String phone;
 
+    @Column(nullable = false)
+    private String email;
+
     @OneToMany(mappedBy = "person", fetch = FetchType.EAGER)
     private Set<Task> tasks;
 
@@ -33,12 +36,13 @@ public class Person {
 
     public Person() {}
 
-    public Person(Long id, String firstName, String lastName, LocalDate birthDate, String phone) {
+    public Person(Long id, String firstName, String lastName, LocalDate birthDate, String phone, String email) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthDate = birthDate;
         this.phone = phone;
+        this.email = email;
     }
 
     public Long getId() {
@@ -95,6 +99,14 @@ public class Person {
 
     public void setPushSubscriptions(Set<PushSubscription> pushSubscriptions) {
         this.pushSubscriptions = pushSubscriptions;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     @Override

@@ -15,15 +15,17 @@ public class PersonDTO extends RepresentationModel<PersonDTO> implements Seriali
     private String lastName;
     private String birthDate;
     private String phone;
+    private String email;
 
     public PersonDTO() {}
 
-    public PersonDTO(Long id, String firstName, String lastName, String birthDate, String phone) {
+    public PersonDTO(Long id, String firstName, String lastName, String birthDate, String phone, String email) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthDate = birthDate;
         this.phone = phone;
+        this.email = email;
     }
 
     public Long getId() {
@@ -64,6 +66,14 @@ public class PersonDTO extends RepresentationModel<PersonDTO> implements Seriali
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     @Override
