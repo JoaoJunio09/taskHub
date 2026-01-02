@@ -1,65 +1,53 @@
 package com.joaojunio_dev.taskHub.services.email;
 
-import com.joaojunio_dev.taskHub.model.Person;
-import jakarta.mail.internet.InternetAddress;
-import jakarta.mail.internet.MimeMessage;
-import org.springframework.context.i18n.LocaleContextHolder;
-import org.springframework.core.env.Environment;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.joaojunio_dev.taskHub.config.EmailConfig;
+import com.joaojunio_dev.taskHub.data.dto.email.EmailRequestDTO;
+import com.joaojunio_dev.taskHub.mail.EmailSender;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.thymeleaf.TemplateEngine;
-import org.thymeleaf.context.Context;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.io.IOException;
 
 @Service
 public class EmailService {
 
-    private static final String TEMPLATE_NAME = "registration";
-    private static final String SPRING_LOGO_IMAGE = "templates/images/spring.png";
-    private static final String PNG_MIME = "image/png";
-    private static final String MAIL_SUBJECT = "Seja bem vindo(a)";
+    @Autowired
+    private EmailSender emailSender;
 
-    private final Environment environment;
+    @Autowired
+    private EmailConfig emailConfig;
 
-    private final JavaMailSender mailSender;
-
-    private final TemplateEngine htmlTemplateEngine;
-
-    public EmailService(Environment environment, JavaMailSender mailSender, TemplateEngine htmlTemplateEngine) {
-        this.environment = environment;
-        this.mailSender = mailSender;
-        this.htmlTemplateEngine = htmlTemplateEngine;
+    public void sendSimplesEmail(EmailRequestDTO emailRequest) {
+        emailSender
+            .to(emailRequest.getTo())
+            .withSubject(emailRequest.getSubject())
+            .withMessage(emailRequest.getBody())
+            .send(emailConfig);
     }
 
-    public void sendMailWithInline(Person person) throws Exception {
+    public void sendEmailWithAttchment(String emailRequestJson, MultipartFile attachment) {
+        File tempFile = null;
+        try {
+            EmailRequestDTO emailRequest = new ObjectMapper().readValue(emailRequestJson, EmailRequestDTO.class);
+            tempFile = File.createTempFile("attachment", attachment.getOriginalFilename());
+            attachment.transferTo(tempFile);
 
-        String confirmationUrl = "generated_confirmation_url";
-        String mailFrom = environment.getProperty("spring.mail.properties.mail.smtp.from");
-        String mailFromName = environment.getProperty("mail.from.name", "Identify");
-
-        final MimeMessage mimeMessage = this.mailSender.createMimeMessage();
-        final MimeMessageHelper email;
-        email = new MimeMessageHelper(mimeMessage, true, "UTF-8");
-
-        email.setTo(person.getEmail());
-        email.setSubject(MAIL_SUBJECT);
-        email.setFrom(new InternetAddress(mailFrom, mailFromName));
-
-        final Context ctx = new Context(LocaleContextHolder.getLocale());
-        ctx.setVariable("email", person.getEmail());
-        ctx.setVariable("name", person.getFirstName());
-        ctx.setVariable("springLogo", SPRING_LOGO_IMAGE);
-        ctx.setVariable("url", confirmationUrl);
-
-        final String htmlContent = this.htmlTemplateEngine.process(TEMPLATE_NAME, ctx);
-
-        email.setText(htmlContent, true);
-
-        ClassPathResource clr = new ClassPathResource(SPRING_LOGO_IMAGE);
-
-        email.addInline("springLogo", clr, PNG_MIME);
-
-        mailSender.send(mimeMessage);
+            emailSender
+                .to(emailRequest.getTo())
+                .withSubject(emailRequest.getSubject())
+                .withMessage(emailRequest.getBody())
+                .attach(tempFile.getAbsolutePath())
+                .send(emailConfig);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException("Error parsing email request JSON!");
+        } catch (IOException ioE) {
+            throw new RuntimeException("Error processing the attachment!");
+        } finally {
+            if (tempFile != null && tempFile.exists()) tempFile.delete();
+        }
     }
 }

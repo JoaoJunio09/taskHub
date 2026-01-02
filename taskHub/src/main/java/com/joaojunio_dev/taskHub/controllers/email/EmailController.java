@@ -1,17 +1,12 @@
 package com.joaojunio_dev.taskHub.controllers.email;
 
-import com.joaojunio_dev.taskHub.model.Person;
+import com.joaojunio_dev.taskHub.data.dto.email.EmailRequestDTO;
 import com.joaojunio_dev.taskHub.services.email.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.util.HashMap;
-import java.util.Map;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequestMapping("/api/v1/email")
@@ -21,12 +16,17 @@ public class EmailController {
     private EmailService emailService;
 
     @PostMapping
-    public ResponseEntity<Object> register(@RequestBody Person person) throws Exception {
-        emailService.sendMailWithInline(person);
+    public ResponseEntity<String> sendEmail(@RequestBody EmailRequestDTO emailRequest) {
+        emailService.sendSimplesEmail(emailRequest);
+        return new ResponseEntity<>("e-Mail sent with success!", HttpStatus.OK);
+    }
 
-        Map<String, String> body = new HashMap<>();
-        body.put("message", "Person created successfully.");
-
-        return new ResponseEntity<>(body, HttpStatus.OK);
+    @PostMapping
+    public ResponseEntity<String> sendEmailWithAttachment(
+        @RequestParam("emailRequest") String emailRequestJson,
+        @RequestParam("attachment") MultipartFile attachment
+    ) {
+        emailService.sendEmailWithAttchment(emailRequestJson, attachment);
+        return new ResponseEntity<>("e-Mail with Attachment sent successfully!", HttpStatus.OK);
     }
 }
