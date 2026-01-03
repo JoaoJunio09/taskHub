@@ -9,9 +9,7 @@ public class FileStorageConfig {
 
     private String uploadDir;
 
-    public FileStorageConfig(String uploadDir) {
-        this.uploadDir = uploadDir;
-    }
+    public FileStorageConfig() {}
 
     public String getUploadDir() {
         return uploadDir;
