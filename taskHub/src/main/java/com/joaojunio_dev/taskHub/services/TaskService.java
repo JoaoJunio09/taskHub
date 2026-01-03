@@ -1,14 +1,13 @@
 package com.joaojunio_dev.taskHub.services;
 
 import com.joaojunio_dev.taskHub.controllers.TaskController;
-import com.joaojunio_dev.taskHub.data.dto.PersonDTO;
 import com.joaojunio_dev.taskHub.data.dto.TaskDTO;
-import com.joaojunio_dev.taskHub.data.dto.TaskHistoryDTO;
 import com.joaojunio_dev.taskHub.exceptions.InvalidTypeOfDateException;
 import com.joaojunio_dev.taskHub.exceptions.NotFoundException;
 import com.joaojunio_dev.taskHub.exceptions.ObjectIsNullException;
 import com.joaojunio_dev.taskHub.model.Person;
 import com.joaojunio_dev.taskHub.model.Task;
+import com.joaojunio_dev.taskHub.model.TaskHistory;
 import com.joaojunio_dev.taskHub.model.enums.ThisDateOrPreviousOrLater;
 import com.joaojunio_dev.taskHub.model.enums.TypeOfMovimentInTask;
 import com.joaojunio_dev.taskHub.repositories.TaskRepository;
@@ -34,6 +33,7 @@ public class TaskService {
 
     @Autowired
     private PersonService personService;
+
     @Autowired
     private RecordingTaskHistory recordingHistory;
 
@@ -124,7 +124,7 @@ public class TaskService {
         entity.setPerson(person);
 
         var dto = convertEntityToDTO(repository.save(entity));
-        registerHistoryTheTask(dto, personService.convertEntityToDto(person), TypeOfMovimentInTask.CREATE);
+        registerHistoryTheTask(entity, person, TypeOfMovimentInTask.CREATE);
         return addHateoas(dto);
     }
 
@@ -143,7 +143,7 @@ public class TaskService {
         entity.setPerson(person);
 
         var dto = convertEntityToDTO(repository.save(entity));
-        registerHistoryTheTask(dto, personService.convertEntityToDto(person), TypeOfMovimentInTask.UPDATE);
+        registerHistoryTheTask(entity, person, TypeOfMovimentInTask.UPDATE);
         return addHateoas(dto);
     }
 
@@ -153,23 +153,14 @@ public class TaskService {
 
         var entity = repository.findById(id)
             .orElseThrow(() -> new NotFoundException("Not found this ID : " + id));
+
         var person = personService.findEntityById(entity.getPerson().getId());
-        registerHistoryTheTask(
-            convertEntityToDTO(entity),
-            personService.convertEntityToDto(person),
-            TypeOfMovimentInTask.DELETE
-        );
+        registerHistoryTheTask(entity, person, TypeOfMovimentInTask.DELETE);
         repository.delete(entity);
     }
 
-    private void registerHistoryTheTask(TaskDTO task, PersonDTO person, TypeOfMovimentInTask type) {
-        recordingHistory.register(new TaskHistoryDTO(
-            null,
-            type,
-            LocalDateTime.now(),
-            task,
-            person
-        ));
+    private void registerHistoryTheTask(Task task, Person person, TypeOfMovimentInTask type) {
+        recordingHistory.register(new TaskHistory(null, type, LocalDateTime.now(), task, person));
     }
 
     private TaskDTO convertEntityToDTO(Task entity) {

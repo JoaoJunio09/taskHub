@@ -14,7 +14,7 @@ public class TaskHistory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "action")
     private TypeOfMovimentInTask type;
 
     @Column(nullable = false)

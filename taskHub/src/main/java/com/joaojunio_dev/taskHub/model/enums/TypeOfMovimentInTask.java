@@ -6,5 +6,4 @@ public enum TypeOfMovimentInTask {
     UPDATE,
     DELETE,
     COMPLETED,
-
 }
