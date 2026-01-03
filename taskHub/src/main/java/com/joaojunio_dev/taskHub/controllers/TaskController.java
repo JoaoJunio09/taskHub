@@ -26,8 +26,7 @@ public class TaskController implements TaskControllerDocs {
         produces = {
             MediaType.APPLICATION_JSON,
             MediaType.APPLICATION_XML,
-            MediaType.APPLICATION_YAML}
-    )
+            MediaType.APPLICATION_YAML })
     @Override
     public ResponseEntity<List<TaskDTO>> findAll() {
         return ResponseEntity.ok().body(service.findAll());
@@ -38,8 +37,7 @@ public class TaskController implements TaskControllerDocs {
         produces = {
             MediaType.APPLICATION_JSON,
             MediaType.APPLICATION_XML,
-            MediaType.APPLICATION_YAML}
-    )
+            MediaType.APPLICATION_YAML })
     @Override
     public ResponseEntity<TaskDTO> findById(@PathVariable Long id) {
         return ResponseEntity.ok().body(service.findById(id));
@@ -50,8 +48,7 @@ public class TaskController implements TaskControllerDocs {
         produces = {
             MediaType.APPLICATION_JSON,
             MediaType.APPLICATION_XML,
-            MediaType.APPLICATION_YAML}
-    )
+            MediaType.APPLICATION_YAML })
     @Override
     public ResponseEntity<List<TaskDTO>> findByPersonId(@PathVariable Long personId) {
         return ResponseEntity.ok().body(service.findByPersonId(personId));
@@ -62,8 +59,7 @@ public class TaskController implements TaskControllerDocs {
         produces = {
             MediaType.APPLICATION_JSON,
             MediaType.APPLICATION_XML,
-            MediaType.APPLICATION_YAML}
-    )
+            MediaType.APPLICATION_YAML })
     @Override
     public ResponseEntity<List<TaskDTO>> findByCompleted(@PathVariable Boolean completed) {
         return ResponseEntity.ok().body(service.findByCompleted(completed));
@@ -74,8 +70,7 @@ public class TaskController implements TaskControllerDocs {
         produces = {
             MediaType.APPLICATION_JSON,
             MediaType.APPLICATION_XML,
-            MediaType.APPLICATION_YAML}
-    )
+            MediaType.APPLICATION_YAML })
     @Override
     public ResponseEntity<List<TaskDTO>> findByDate(
         @PathParam("date") LocalDate date,
@@ -91,8 +86,7 @@ public class TaskController implements TaskControllerDocs {
         produces = {
             MediaType.APPLICATION_JSON,
             MediaType.APPLICATION_XML,
-            MediaType.APPLICATION_YAML}
-    )
+            MediaType.APPLICATION_YAML })
     @Override
     public ResponseEntity<TaskDTO> create(@RequestBody TaskDTO task) {
         return ResponseEntity.ok().body(service.create(task));
@@ -106,16 +100,13 @@ public class TaskController implements TaskControllerDocs {
         produces = {
             MediaType.APPLICATION_JSON,
             MediaType.APPLICATION_XML,
-            MediaType.APPLICATION_YAML}
-    )
+            MediaType.APPLICATION_YAML })
     @Override
     public ResponseEntity<TaskDTO> update(@RequestBody TaskDTO task) {
         return ResponseEntity.ok().body(service.update(task));
     }
 
-    @DeleteMapping(
-        value = "/{id}"
-    )
+    @DeleteMapping(value = "/{id}")
     @Override
     public ResponseEntity<?> delete(@PathVariable Long id) {
         service.delete(id);

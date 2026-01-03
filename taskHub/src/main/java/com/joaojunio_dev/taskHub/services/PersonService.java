@@ -100,7 +100,7 @@ public class PersonService {
         return dto;
     }
 
-    private static PersonDTO convertEntityToDto(Person entity) {
+    protected PersonDTO convertEntityToDto(Person entity) {
         PersonDTO dto;
         dto = new PersonDTO(
             entity.getId(),
