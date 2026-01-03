@@ -53,11 +53,11 @@ public class EmailSender {
     public void send(EmailConfig config) {
         MimeMessage message = mailSender.createMimeMessage();
         try {
-            MimeMessageHelper helper = new MimeMessageHelper(message, "UTF-8");
+            MimeMessageHelper helper = new MimeMessageHelper(message, true);
             helper.setTo(this.recipients.toArray(new InternetAddress[0]));
             helper.setSubject(subject);
             helper.setText(body, true);
-            helper.setFrom(config.getFrom());
+            helper.setFrom(config.getUsername());
             if (attachment != null) {
                 helper.addAttachment(attachment.getName(), attachment);
             }
