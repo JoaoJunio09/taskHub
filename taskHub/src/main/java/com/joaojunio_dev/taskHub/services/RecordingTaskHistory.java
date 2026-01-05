@@ -17,7 +17,7 @@ public class RecordingTaskHistory {
     private TaskHistoryRepository repository;
 
     public void register(TaskHistory taskHistory) {
-        if (taskHistory == null) throw new ObjectIsNullException("Object was null");
+        if (taskHistory == null) throw new ObjectIsNullException("Object is null");
 
         logger.info("Registering the task history in the database");
         repository.save(taskHistory);
