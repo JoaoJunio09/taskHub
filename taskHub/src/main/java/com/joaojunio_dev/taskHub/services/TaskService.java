@@ -134,16 +134,15 @@ public class TaskService {
 
         if (task == null) throw new ObjectIsNullException("Object is null");
 
-        var person = personService.findEntityById(task.getPersonId());
         var entity = repository.findById(task.getId())
             .orElseThrow(() -> new NotFoundException("Not found this ID : " + task.getId()));
         entity.setTitle(task.getTitle());
         entity.setDescription(task.getDescription());
         entity.setCompleted(task.getCompleted());
-        entity.setPerson(person);
+        entity.setPerson(entity.getPerson());
 
         var dto = convertEntityToDTO(repository.save(entity));
-        registerHistoryTheTask(entity, person, TypeOfMovimentInTask.UPDATE);
+        registerHistoryTheTask(entity, entity.getPerson(), TypeOfMovimentInTask.UPDATE);
         return addHateoas(dto);
     }
 
@@ -154,8 +153,7 @@ public class TaskService {
         var entity = repository.findById(id)
             .orElseThrow(() -> new NotFoundException("Not found this ID : " + id));
 
-        var person = personService.findEntityById(entity.getPerson().getId());
-        registerHistoryTheTask(entity, person, TypeOfMovimentInTask.DELETE);
+        registerHistoryTheTask(entity, entity.getPerson(), TypeOfMovimentInTask.DELETE);
         repository.delete(entity);
     }
 
