@@ -1,6 +1,5 @@
 package com.joaojunio_dev.taskHub.file.exporter.impl;
 
-import com.joaojunio_dev.taskHub.data.dto.TaskDTO;
 import com.joaojunio_dev.taskHub.file.exporter.contract.TaskExporter;
 import com.joaojunio_dev.taskHub.model.TaskHistory;
 import org.apache.commons.io.output.ByteArrayOutputStream;
@@ -34,10 +33,6 @@ public class CsvExporterImpl implements TaskExporter {
             }
             return new ByteArrayResource(outputStream.toByteArray());
         }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
     }
 
     @Override
