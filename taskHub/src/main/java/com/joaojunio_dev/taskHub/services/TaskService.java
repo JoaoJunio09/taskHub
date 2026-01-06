@@ -15,6 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
@@ -108,6 +109,7 @@ public class TaskService {
         return dtos;
     }
 
+    @Transactional
     public TaskDTO create(TaskDTO task) {
 
         logger.info("Creating one Task");
@@ -128,6 +130,7 @@ public class TaskService {
         return addHateoas(dto);
     }
 
+    @Transactional
     public TaskDTO update(TaskDTO task) {
 
         logger.info("Updating one Task");
@@ -146,6 +149,7 @@ public class TaskService {
         return addHateoas(dto);
     }
 
+    @Transactional
     public void delete(Long id) {
 
         logger.info("Deleting a one Task");
