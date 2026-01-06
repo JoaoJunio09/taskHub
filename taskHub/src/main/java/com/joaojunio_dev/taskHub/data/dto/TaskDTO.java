@@ -5,7 +5,7 @@ import org.springframework.hateoas.RepresentationModel;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-public class TaskDTO extends RepresentationModel<TaskDTO> {
+public class  TaskDTO extends RepresentationModel<TaskDTO> {
 
     private Long id;
     private String title;
