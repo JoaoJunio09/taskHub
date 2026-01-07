@@ -1,6 +1,6 @@
 package com.joaojunio_dev.taskHub.file.exporter.impl;
 
-import com.joaojunio_dev.taskHub.file.exporter.contract.TaskExporter;
+import com.joaojunio_dev.taskHub.file.exporter.contract.TaskHistoryExporter;
 import com.joaojunio_dev.taskHub.model.TaskHistory;
 import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.springframework.core.io.ByteArrayResource;
@@ -10,11 +10,11 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.util.List;
 
-public class XlsxExporterImpl implements TaskExporter {
+public class XlsxExporterImpl implements TaskHistoryExporter {
     @Override
     public Resource exportTasks(List<TaskHistory> tasks) throws Exception {
         try (Workbook workBook = new XSSFWorkbook()) {
-            Sheet sheet = workBook.createSheet("Task's Historys");
+            Sheet sheet = workBook.createSheet("Task's History");
 
             Row headerRow = sheet.createRow(0);
             String[] headers = {"ID", "Title", "Occurred At", "Action", "First Name"};

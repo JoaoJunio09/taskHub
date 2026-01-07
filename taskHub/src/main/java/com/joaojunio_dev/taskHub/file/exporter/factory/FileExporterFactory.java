@@ -1,6 +1,6 @@
 package com.joaojunio_dev.taskHub.file.exporter.factory;
 
-import com.joaojunio_dev.taskHub.file.exporter.contract.TaskExporter;
+import com.joaojunio_dev.taskHub.file.exporter.contract.TaskHistoryExporter;
 import com.joaojunio_dev.taskHub.file.exporter.impl.CsvExporterImpl;
 import com.joaojunio_dev.taskHub.file.exporter.impl.PdfExporterImpl;
 import com.joaojunio_dev.taskHub.file.exporter.impl.XlsxExporterImpl;
@@ -14,7 +14,7 @@ public class FileExporterFactory {
     @Autowired
     private ApplicationContext context;
 
-    public TaskExporter getExporter(String acceptHeader) throws Exception {
+    public TaskHistoryExporter getExporter(String acceptHeader) throws Exception {
         if (acceptHeader.equalsIgnoreCase(MediaType.APPLICATION_XLSX_VALUE)) {
             return context.getBean(XlsxExporterImpl.class);
         }

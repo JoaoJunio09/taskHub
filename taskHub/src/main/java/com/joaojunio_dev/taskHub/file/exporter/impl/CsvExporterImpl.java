@@ -1,6 +1,6 @@
 package com.joaojunio_dev.taskHub.file.exporter.impl;
 
-import com.joaojunio_dev.taskHub.file.exporter.contract.TaskExporter;
+import com.joaojunio_dev.taskHub.file.exporter.contract.TaskHistoryExporter;
 import com.joaojunio_dev.taskHub.model.TaskHistory;
 import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.apache.commons.csv.*;
@@ -10,7 +10,7 @@ import org.springframework.core.io.Resource;
 import java.io.OutputStreamWriter;
 import java.util.List;
 
-public class CsvExporterImpl implements TaskExporter {
+public class CsvExporterImpl implements TaskHistoryExporter {
     @Override
     public Resource exportTasks(List<TaskHistory> tasks) throws Exception {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
