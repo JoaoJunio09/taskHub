@@ -2,8 +2,7 @@ package com.joaojunio_dev.taskHub.controllers.docs;
 
 import com.joaojunio_dev.taskHub.controllers.PersonController;
 import com.joaojunio_dev.taskHub.data.dto.PersonDTO;
-import com.joaojunio_dev.taskHub.mediatype.MediaType;
-import com.joaojunio_dev.taskHub.model.Person;
+import com.joaojunio_dev.taskHub.mediatype.MediaTypes;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -12,7 +11,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.print.attribute.standard.Media;
 import java.util.List;
 
 public interface PersonControllerDocs {
@@ -26,7 +24,7 @@ public interface PersonControllerDocs {
                 description = "Success",
                 responseCode = "200",
                 content = @Content(
-                    mediaType = MediaType.APPLICATION_JSON,
+                    mediaType = MediaTypes.APPLICATION_JSON,
                     array = @ArraySchema(schema = @Schema(implementation = PersonController.class)))),
             @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
             @ApiResponse(description = "No Content", responseCode = "204", content = @Content),
@@ -60,7 +58,7 @@ public interface PersonControllerDocs {
             @ApiResponse(
                 description = "Success",
                 responseCode = "200",
-                content = @Content(mediaType = MediaType.APPLICATION_JSON)),
+                content = @Content(mediaType = MediaTypes.APPLICATION_JSON)),
             @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
             @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
             @ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
@@ -77,7 +75,7 @@ public interface PersonControllerDocs {
             @ApiResponse(
                 description = "Success",
                 responseCode = "200",
-                content = @Content(mediaType = MediaType.APPLICATION_JSON)),
+                content = @Content(mediaType = MediaTypes.APPLICATION_JSON)),
             @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
             @ApiResponse(description = "No Content", responseCode = "204", content = @Content),
             @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
@@ -95,7 +93,7 @@ public interface PersonControllerDocs {
             @ApiResponse(
                 description = "Success",
                 responseCode = "200",
-                content = @Content(mediaType = MediaType.APPLICATION_JSON)),
+                content = @Content(mediaType = MediaTypes.APPLICATION_JSON)),
             @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
             @ApiResponse(description = "No Content", responseCode = "204", content = @Content),
             @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),

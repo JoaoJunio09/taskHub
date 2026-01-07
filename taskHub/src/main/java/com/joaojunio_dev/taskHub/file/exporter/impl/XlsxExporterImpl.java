@@ -7,9 +7,11 @@ import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public class XlsxExporterImpl implements TaskHistoryExporter {
     @Override
     public Resource exportTasks(List<TaskHistory> tasks) throws Exception {

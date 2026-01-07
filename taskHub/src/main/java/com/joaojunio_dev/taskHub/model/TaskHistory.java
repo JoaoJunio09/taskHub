@@ -20,10 +20,10 @@ public class TaskHistory {
     @Column(nullable = false)
     private LocalDateTime occuredAt;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Task task;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Person person;
 
     public TaskHistory() {}

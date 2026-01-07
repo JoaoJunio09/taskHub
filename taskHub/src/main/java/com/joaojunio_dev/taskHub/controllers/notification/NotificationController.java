@@ -1,9 +1,7 @@
 package com.joaojunio_dev.taskHub.controllers.notification;
 
 import com.joaojunio_dev.taskHub.data.dto.notification.NotificationDTO;
-import com.joaojunio_dev.taskHub.mediatype.MediaType;
-import com.joaojunio_dev.taskHub.model.Notification;
-import com.joaojunio_dev.taskHub.repositories.NotificationRepository;
+import com.joaojunio_dev.taskHub.mediatype.MediaTypes;
 import com.joaojunio_dev.taskHub.services.notification.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,14 +16,14 @@ public class NotificationController {
 
     @PostMapping(
         produces = {
-            MediaType.APPLICATION_JSON,
-            MediaType.APPLICATION_XML,
-            MediaType.APPLICATION_YAML
+            MediaTypes.APPLICATION_JSON,
+            MediaTypes.APPLICATION_XML,
+            MediaTypes.APPLICATION_YAML
         },
         consumes = {
-            MediaType.APPLICATION_JSON,
-            MediaType.APPLICATION_XML,
-            MediaType.APPLICATION_YAML
+            MediaTypes.APPLICATION_JSON,
+            MediaTypes.APPLICATION_XML,
+            MediaTypes.APPLICATION_YAML
         }
     )
     public ResponseEntity<NotificationDTO> create(@RequestBody NotificationDTO notification) {

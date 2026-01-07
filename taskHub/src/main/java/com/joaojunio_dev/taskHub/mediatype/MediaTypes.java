@@ -1,6 +1,6 @@
 package com.joaojunio_dev.taskHub.mediatype;
 
-public class MediaType {
+public class MediaTypes {
 
     public static final String APPLICATION_YAML = "application/yaml";
     public static final String APPLICATION_JSON = "application/json";

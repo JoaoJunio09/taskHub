@@ -2,7 +2,7 @@ package com.joaojunio_dev.taskHub.controllers;
 
 import com.joaojunio_dev.taskHub.controllers.docs.PersonControllerDocs;
 import com.joaojunio_dev.taskHub.data.dto.PersonDTO;
-import com.joaojunio_dev.taskHub.mediatype.MediaType;
+import com.joaojunio_dev.taskHub.mediatype.MediaTypes;
 import com.joaojunio_dev.taskHub.services.PersonService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +21,9 @@ public class PersonController implements PersonControllerDocs {
 
     @GetMapping(
         produces = {
-            MediaType.APPLICATION_JSON,
-            MediaType.APPLICATION_XML,
-            MediaType.APPLICATION_YAML})
+            MediaTypes.APPLICATION_JSON,
+            MediaTypes.APPLICATION_XML,
+            MediaTypes.APPLICATION_YAML})
     @Override
     public ResponseEntity<List<PersonDTO>> findAll() {
         return ResponseEntity.ok().body(service.findAll());
@@ -32,9 +32,9 @@ public class PersonController implements PersonControllerDocs {
     @GetMapping(
         value = "/{id}",
         produces = {
-            MediaType.APPLICATION_JSON,
-            MediaType.APPLICATION_XML,
-            MediaType.APPLICATION_YAML})
+            MediaTypes.APPLICATION_JSON,
+            MediaTypes.APPLICATION_XML,
+            MediaTypes.APPLICATION_YAML})
     @Override
     public ResponseEntity<PersonDTO> findById(@PathVariable Long id) {
         return ResponseEntity.ok().body(service.findById(id));
@@ -42,13 +42,13 @@ public class PersonController implements PersonControllerDocs {
 
     @PostMapping(
         consumes = {
-            MediaType.APPLICATION_JSON,
-            MediaType.APPLICATION_XML,
-            MediaType.APPLICATION_YAML},
+            MediaTypes.APPLICATION_JSON,
+            MediaTypes.APPLICATION_XML,
+            MediaTypes.APPLICATION_YAML},
         produces = {
-            MediaType.APPLICATION_JSON,
-            MediaType.APPLICATION_XML,
-            MediaType.APPLICATION_YAML})
+            MediaTypes.APPLICATION_JSON,
+            MediaTypes.APPLICATION_XML,
+            MediaTypes.APPLICATION_YAML})
     @Override
     public ResponseEntity<PersonDTO> create(@RequestBody PersonDTO personDTO) {
         return ResponseEntity.ok().body(service.create(personDTO));
@@ -56,13 +56,13 @@ public class PersonController implements PersonControllerDocs {
 
     @PutMapping(
         consumes = {
-            MediaType.APPLICATION_JSON,
-            MediaType.APPLICATION_XML,
-            MediaType.APPLICATION_YAML},
+            MediaTypes.APPLICATION_JSON,
+            MediaTypes.APPLICATION_XML,
+            MediaTypes.APPLICATION_YAML},
         produces = {
-            MediaType.APPLICATION_JSON,
-            MediaType.APPLICATION_XML,
-            MediaType.APPLICATION_YAML})
+            MediaTypes.APPLICATION_JSON,
+            MediaTypes.APPLICATION_XML,
+            MediaTypes.APPLICATION_YAML})
     @Override
     public ResponseEntity<PersonDTO> update(@RequestBody PersonDTO personDTO) {
         return ResponseEntity.ok().body(service.update(personDTO));

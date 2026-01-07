@@ -1,7 +1,7 @@
 package com.joaojunio_dev.taskHub.controllers.notification;
 
 import com.joaojunio_dev.taskHub.data.dto.notification.SubscriptionDTO;
-import com.joaojunio_dev.taskHub.mediatype.MediaType;
+import com.joaojunio_dev.taskHub.mediatype.MediaTypes;
 import com.joaojunio_dev.taskHub.model.PushSubscription;
 import com.joaojunio_dev.taskHub.repositories.PushSubscriptionRepository;
 import com.joaojunio_dev.taskHub.services.PersonService;
@@ -23,14 +23,14 @@ public class SubscriptionController {
 
     @PostMapping(
         consumes = {
-            MediaType.APPLICATION_JSON,
-            MediaType.APPLICATION_XML,
-            MediaType.APPLICATION_YAML
+            MediaTypes.APPLICATION_JSON,
+            MediaTypes.APPLICATION_XML,
+            MediaTypes.APPLICATION_YAML
         },
         produces = {
-            MediaType.APPLICATION_JSON,
-            MediaType.APPLICATION_XML,
-            MediaType.APPLICATION_YAML
+            MediaTypes.APPLICATION_JSON,
+            MediaTypes.APPLICATION_XML,
+            MediaTypes.APPLICATION_YAML
         }
     )
     public void save(@RequestBody SubscriptionDTO subscription) {

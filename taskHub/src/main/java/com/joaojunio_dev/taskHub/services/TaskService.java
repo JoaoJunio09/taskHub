@@ -5,6 +5,8 @@ import com.joaojunio_dev.taskHub.data.dto.TaskDTO;
 import com.joaojunio_dev.taskHub.exceptions.InvalidTypeOfDateException;
 import com.joaojunio_dev.taskHub.exceptions.NotFoundException;
 import com.joaojunio_dev.taskHub.exceptions.ObjectIsNullException;
+import com.joaojunio_dev.taskHub.file.exporter.contract.TaskHistoryExporter;
+import com.joaojunio_dev.taskHub.file.exporter.factory.FileExporterFactory;
 import com.joaojunio_dev.taskHub.model.Person;
 import com.joaojunio_dev.taskHub.model.Task;
 import com.joaojunio_dev.taskHub.model.TaskHistory;
@@ -14,6 +16,7 @@ import com.joaojunio_dev.taskHub.repositories.TaskRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,6 +40,9 @@ public class TaskService {
 
     @Autowired
     private RecordingTaskHistory recordingHistory;
+
+    @Autowired
+    private FileExporterFactory exporter;
 
     public List<TaskDTO> findAll() {
 
@@ -107,6 +113,18 @@ public class TaskService {
             .toList();
         dtos.forEach(this::addHateoas);
         return dtos;
+    }
+
+    public Resource exportTasksHistory(String acceptHeader) {
+
+        logger.info("Exporting a Task's History");
+
+        try {
+            TaskHistoryExporter exporter = this.exporter.getExporter(acceptHeader);
+            return exporter.exportTasks(recordingHistory.findAll());
+        } catch (Exception e) {
+            throw new RuntimeException("Error during file export", e);
+        }
     }
 
     @Transactional
