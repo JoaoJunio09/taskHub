@@ -39,7 +39,7 @@ public class TaskService {
     private PersonService personService;
 
     @Autowired
-    private RecordingTaskHistory recordingHistory;
+    private TaskHistoryService recordingHistory;
 
     @Autowired
     private FileExporterFactory exporter;
@@ -113,18 +113,6 @@ public class TaskService {
             .toList();
         dtos.forEach(this::addHateoas);
         return dtos;
-    }
-
-    public Resource exportTasksHistory(String acceptHeader) {
-
-        logger.info("Exporting a Task's History");
-
-        try {
-            TaskHistoryExporter exporter = this.exporter.getExporter(acceptHeader);
-            return exporter.exportTasks(recordingHistory.findAll());
-        } catch (Exception e) {
-            throw new RuntimeException("Error during file export", e);
-        }
     }
 
     @Transactional

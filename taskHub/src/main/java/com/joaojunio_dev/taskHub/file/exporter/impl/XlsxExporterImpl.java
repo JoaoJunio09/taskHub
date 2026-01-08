@@ -47,7 +47,7 @@ public class XlsxExporterImpl implements TaskHistoryExporter {
     }
 
     @Override
-    public Resource exportTask(TaskHistory task) throws Exception {
+    public Resource exportTasksByPersonId(List<TaskHistory> tasks) throws Exception {
         return null;
     }
 

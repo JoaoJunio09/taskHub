@@ -16,31 +16,36 @@ import java.util.List;
 public class CsvExporterImpl implements TaskHistoryExporter {
     @Override
     public Resource exportTasks(List<TaskHistory> tasks) throws Exception {
+        return exportingDataOfTasks(tasks);
+    }
+
+    @Override
+    public Resource exportTasksByPersonId(List<TaskHistory> tasks) throws Exception {
+        return exportingDataOfTasks(tasks);
+    }
+
+    private ByteArrayResource exportingDataOfTasks(List<TaskHistory> tasks) throws Exception {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         OutputStreamWriter writer = new OutputStreamWriter(outputStream, StandardCharsets.UTF_8);
 
         CSVFormat csvFormat = CSVFormat.Builder.create()
-            .setHeader("ID", "Title", "Occurred At", "Action", "First name")
-            .setSkipHeaderRecord(false)
+            .setHeader("ID", "Title", "Occurred At", "Action", "First Name")
+            .setSkipHeaderRecord(true)
             .build();
 
-        try (CSVPrinter csvPrinter = new CSVPrinter(writer, csvFormat)) {
+        try (CSVPrinter printer = new CSVPrinter(writer, csvFormat)) {
             for (TaskHistory task : tasks) {
-                csvPrinter.printRecord(
-                    task.getId(),
-                    task.getTask().getTitle(),
-                    task.getOccuredAt(),
-                    task.getType(),
-                    task.getPerson().getFirstName()
+                printer.printRecord(
+                    "ID", task.getId(),
+                    "Title", task.getTask().getTitle(),
+                    "Occurred At", task.getOccuredAt(),
+                    "Action", task.getType(),
+                    "First Name", task.getPerson().getFirstName()
                 );
             }
-            csvPrinter.flush();
+
+            printer.flush();
             return new ByteArrayResource(outputStream.toByteArray());
         }
-    }
-
-    @Override
-    public Resource exportTask(TaskHistory task) throws Exception {
-        return null;
     }
 }

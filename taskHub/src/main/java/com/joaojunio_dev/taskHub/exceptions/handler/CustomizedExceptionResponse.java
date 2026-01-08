@@ -2,14 +2,16 @@ package com.joaojunio_dev.taskHub.exceptions.handler;
 
 import com.joaojunio_dev.taskHub.exceptions.*;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 
 import java.util.Date;
 
-@RestController
+@RestControllerAdvice
 public class CustomizedExceptionResponse {
 
     @ExceptionHandler(Exception.class)
@@ -29,7 +31,10 @@ public class CustomizedExceptionResponse {
             request.getDescription(true),
             new Date()
         );
-        return new ResponseEntity<>(exceptionResponse, HttpStatus.NOT_FOUND);
+        return ResponseEntity
+            .status(HttpStatus.NOT_FOUND)
+            .contentType(MediaType.APPLICATION_JSON)
+            .body(exceptionResponse);
     }
 
     @ExceptionHandler(ObjectIsNullException.class)

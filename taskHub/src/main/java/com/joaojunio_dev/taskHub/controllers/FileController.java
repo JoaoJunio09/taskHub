@@ -1,7 +1,9 @@
 package com.joaojunio_dev.taskHub.controllers;
 
+import com.joaojunio_dev.taskHub.controllers.docs.FileControllerDocs;
 import com.joaojunio_dev.taskHub.data.dto.file.UploadResponseDTO;
 import com.joaojunio_dev.taskHub.services.file.FileStorageService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
@@ -19,9 +21,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Tag(name = "File")
 @RestController
 @RequestMapping("/api/file/v1")
-public class FileController {
+public class FileController implements FileControllerDocs {
 
     private static final Logger logger = LoggerFactory.getLogger(FileController.class.getName());
 
@@ -29,6 +32,7 @@ public class FileController {
     private FileStorageService service;
 
     @PostMapping("/uploadFile")
+    @Override
     public UploadResponseDTO upload(@RequestParam("file") MultipartFile file) {
         var fileName = service.storeFile(file);
 
@@ -41,6 +45,7 @@ public class FileController {
 
 
     @PostMapping("/uploadMultipleFiles")
+    @Override
     public List<UploadResponseDTO> uploadMultipleFiles(@RequestParam("files") MultipartFile[] files) {
         return Arrays.asList(files)
             .stream()
@@ -49,6 +54,7 @@ public class FileController {
     }
 
     @GetMapping("/downloadFile/{fileName:.+}")
+    @Override
     public ResponseEntity<Resource> downloadFile(@PathVariable("fileName") String fileName, HttpServletRequest request) {
         Resource resource = service.loadFileAsResource(fileName);
         String contentType = null;

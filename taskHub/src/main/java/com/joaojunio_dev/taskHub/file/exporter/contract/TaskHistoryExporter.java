@@ -8,5 +8,5 @@ import java.util.List;
 public interface TaskHistoryExporter {
 
     Resource exportTasks(List<TaskHistory> tasks) throws Exception;
-    Resource exportTask(TaskHistory task) throws Exception;
+    Resource exportTasksByPersonId(List<TaskHistory> tasks) throws Exception;
 }

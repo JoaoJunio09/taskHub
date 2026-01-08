@@ -13,7 +13,7 @@ import java.util.List;
 
 @Tag(name = "Person")
 @RestController
-@RequestMapping("/api/v1/person")
+@RequestMapping("/api/person/v1")
 public class PersonController implements PersonControllerDocs {
 
     @Autowired
@@ -23,7 +23,7 @@ public class PersonController implements PersonControllerDocs {
         produces = {
             MediaTypes.APPLICATION_JSON,
             MediaTypes.APPLICATION_XML,
-            MediaTypes.APPLICATION_YAML})
+            MediaTypes.APPLICATION_YAML })
     @Override
     public ResponseEntity<List<PersonDTO>> findAll() {
         return ResponseEntity.ok().body(service.findAll());
