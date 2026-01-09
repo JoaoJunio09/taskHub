@@ -11,13 +11,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import static com.joaojunio_dev.taskHub.mapper.ObjectMapper.parseObject;
-import static com.joaojunio_dev.taskHub.mapper.ObjectMapper.parseListObjects;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
-
 import java.time.LocalDate;
 import java.util.List;
+
+import static com.joaojunio_dev.taskHub.mapper.ObjectMapper.parseListObjects;
+import static com.joaojunio_dev.taskHub.mapper.ObjectMapper.parseObject;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @Service
 public class PersonService {

@@ -1,9 +1,11 @@
 package com.joaojunio_dev.taskHub.controllers;
 
+import com.joaojunio_dev.taskHub.controllers.docs.TaskHistoryControllerDocs;
 import com.joaojunio_dev.taskHub.mediatype.MediaTypes;
 import com.joaojunio_dev.taskHub.data.dto.ApiResponse;
 import com.joaojunio_dev.taskHub.services.PersonService;
 import com.joaojunio_dev.taskHub.services.TaskHistoryService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -18,9 +20,10 @@ import org.springframework.web.bind.annotation.RestController;
 import java.time.LocalDateTime;
 import java.util.Map;
 
+@Tag(name = "Task History")
 @RestController
 @RequestMapping("/api/tasksHistory/v1")
-public class TaskHistoryController {
+public class TaskHistoryController implements TaskHistoryControllerDocs {
 
     @Autowired
     private TaskHistoryService service;
@@ -34,6 +37,7 @@ public class TaskHistoryController {
             MediaTypes.APPLICATION_CSV_VALUE,
             MediaTypes.APPLICATION_XLSX_VALUE,
             MediaTypes.APPLICATION_PDF_VALUE })
+    @Override
     public ResponseEntity<Resource> export(HttpServletRequest request) {
         String acceptHeader = request.getHeader(HttpHeaders.ACCEPT);
 
@@ -65,6 +69,7 @@ public class TaskHistoryController {
             MediaTypes.APPLICATION_CSV_VALUE,
             MediaTypes.APPLICATION_XLSX_VALUE,
             MediaTypes.APPLICATION_PDF_VALUE })
+    @Override
     public ResponseEntity<?> exportByPersonId(@PathVariable Long personId, HttpServletRequest request) {
         personService.findById(personId);
 

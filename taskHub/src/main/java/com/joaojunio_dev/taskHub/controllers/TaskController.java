@@ -6,19 +6,13 @@ import com.joaojunio_dev.taskHub.mediatype.MediaTypes;
 import com.joaojunio_dev.taskHub.model.enums.ThisDateOrPreviousOrLater;
 import com.joaojunio_dev.taskHub.services.TaskService;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.Resource;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Map;
-
-import static org.springframework.http.MediaType.parseMediaType;
 
 @Tag(name = "Task")
 @RestController
@@ -83,36 +77,6 @@ public class TaskController implements TaskControllerDocs {
         @PathParam("type")ThisDateOrPreviousOrLater type) {
         return ResponseEntity.ok().body(service.findByDate(date, type));
     }
-
-//    @GetMapping(
-//        value = "/export",
-//        produces = {
-//            MediaTypes.APPLICATION_CSV_VALUE,
-//            MediaTypes.APPLICATION_PDF_VALUE,
-//            MediaTypes.APPLICATION_XLSX_VALUE })
-//    public ResponseEntity<Resource> export(HttpServletRequest request) {
-//        String acceptHeader = request.getHeader(HttpHeaders.ACCEPT);
-//
-//        Resource file = service.exportTasksHistory(acceptHeader);
-//
-//        Map<String, String> extensionMap = Map.of(
-//            MediaTypes.APPLICATION_CSV_VALUE, ".csv",
-//            MediaTypes.APPLICATION_XLSX_VALUE, ".xlsx",
-//            MediaTypes.APPLICATION_PDF_VALUE, ".pdf"
-//        );
-//
-//        var fileExtension = extensionMap.getOrDefault(acceptHeader, "");
-//        var contentType = acceptHeader != null ? acceptHeader : "application/octet-stream";
-//        var filename = "tasks_history_exported" + fileExtension;
-//
-//        return ResponseEntity.ok()
-//            .contentType(parseMediaType(contentType))
-//            .header(
-//                HttpHeaders.CONTENT_DISPOSITION,
-//                "attachment; filename=\"" + filename + "\""
-//            )
-//            .body(file);
-//    }
 
     @PostMapping(
         consumes = {

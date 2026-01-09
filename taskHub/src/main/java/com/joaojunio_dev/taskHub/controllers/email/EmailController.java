@@ -14,7 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Tag(name = "E-Mail")
 @RestController
-@RequestMapping("/api/v1/email")
+@RequestMapping("/api/email/v1")
 public class EmailController implements EmailControllerDocs {
 
     @Autowired

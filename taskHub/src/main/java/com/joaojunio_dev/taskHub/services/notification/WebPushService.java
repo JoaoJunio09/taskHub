@@ -41,6 +41,8 @@ public class WebPushService {
             String jsonPayload = new ObjectMapper().writeValueAsString(payload);
             Notification notification = new Notification(sub, jsonPayload);
 
+            logger.info("Sending notification!");
+
             service.send(notification);
         }
         catch (Exception e) {

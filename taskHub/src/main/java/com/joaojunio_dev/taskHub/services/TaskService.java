@@ -5,7 +5,6 @@ import com.joaojunio_dev.taskHub.data.dto.TaskDTO;
 import com.joaojunio_dev.taskHub.exceptions.InvalidTypeOfDateException;
 import com.joaojunio_dev.taskHub.exceptions.NotFoundException;
 import com.joaojunio_dev.taskHub.exceptions.ObjectIsNullException;
-import com.joaojunio_dev.taskHub.file.exporter.contract.TaskHistoryExporter;
 import com.joaojunio_dev.taskHub.file.exporter.factory.FileExporterFactory;
 import com.joaojunio_dev.taskHub.model.Person;
 import com.joaojunio_dev.taskHub.model.Task;
@@ -16,16 +15,15 @@ import com.joaojunio_dev.taskHub.repositories.TaskRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @Service
 public class TaskService {

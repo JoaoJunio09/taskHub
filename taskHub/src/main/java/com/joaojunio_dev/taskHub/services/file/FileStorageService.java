@@ -69,7 +69,7 @@ public class FileStorageService {
                 throw new FileStorageException("File not found " + fileName);
             }
             return resource;
-        } catch (MalformedURLException e) {
+        } catch (Exception e) {
             logger.error("File not found " + fileName);
             throw new FileStorageException("File not found " + fileName);
         }

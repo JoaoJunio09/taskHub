@@ -26,10 +26,13 @@ public class NotificationService {
 
     @Autowired
     private final NotificationRepository notificationRepository;
+
     @Autowired
     private final PushSubscriptionRepository subscriptionRepository;
+
     @Autowired
     private final WebPushService webPushService;
+
     @Autowired
     private final PersonService personService;
 

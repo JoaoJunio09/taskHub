@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/v1/notification")
+@RequestMapping("/api/notification/v1")
 public class NotificationController {
 
     @Autowired
