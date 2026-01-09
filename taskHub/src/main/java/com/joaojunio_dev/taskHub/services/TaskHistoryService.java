@@ -51,8 +51,6 @@ public class TaskHistoryService {
         try {
             TaskHistoryExporter exporter = this.exporter.getExporter(acceptHeader);
 
-
-
             var tasks = findByPersonId(personId);
             return exporter.exportTasksByPersonId(tasks);
         } catch (Exception e) {

@@ -15,11 +15,20 @@ import java.util.List;
 public class XlsxExporterImpl implements TaskHistoryExporter {
     @Override
     public Resource exportTasks(List<TaskHistory> tasks) throws Exception {
+        return exportingDataOfTasks(tasks);
+    }
+
+    @Override
+    public Resource exportTasksByPersonId(List<TaskHistory> tasks) throws Exception {
+        return exportingDataOfTasks(tasks);
+    }
+
+    private ByteArrayResource exportingDataOfTasks(List<TaskHistory> tasks) throws Exception {
         try (Workbook workBook = new XSSFWorkbook()) {
-            Sheet sheet = workBook.createSheet("Task's History");
+            Sheet sheet = workBook.createSheet("Task's History Exported in XLSX");
 
             Row headerRow = sheet.createRow(0);
-            String[] headers = {"ID", "Title", "Occurred At", "Action", "First Name"};
+            String[] headers = {"ID", "Title", "Description", "Occurred At", "Action", "Person"};
             for (int i = 0; i < headers.length; i++) {
                 Cell cell = headerRow.createCell(i);
                 cell.setCellValue(headers[i]);
@@ -31,9 +40,10 @@ public class XlsxExporterImpl implements TaskHistoryExporter {
                 Row row = sheet.createRow(rowIndex++);
                 row.createCell(0).setCellValue(task.getId());
                 row.createCell(1).setCellValue(task.getTask().getTitle());
-                row.createCell(2).setCellValue(task.getOccuredAt());
-                row.createCell(3).setCellValue(String.valueOf(task.getType()));
-                row.createCell(4).setCellValue(task.getPerson().getFirstName());
+                row.createCell(2).setCellValue(task.getTask().getDescription());
+                row.createCell(3).setCellValue(task.getOccuredAt());
+                row.createCell(4).setCellValue(String.valueOf(task.getType()));
+                row.createCell(5).setCellValue(task.getPerson().getFirstName() + " " + task.getPerson().getLastName());
             }
 
             for (int i = 0; i < headers.length; i++) {
@@ -44,11 +54,6 @@ public class XlsxExporterImpl implements TaskHistoryExporter {
             workBook.write(outputStream);
             return new ByteArrayResource(outputStream.toByteArray());
         }
-    }
-
-    @Override
-    public Resource exportTasksByPersonId(List<TaskHistory> tasks) throws Exception {
-        return null;
     }
 
     private CellStyle createHeaderCellStyle(Workbook workBook) {

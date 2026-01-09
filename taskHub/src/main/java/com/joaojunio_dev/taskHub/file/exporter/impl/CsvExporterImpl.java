@@ -29,7 +29,7 @@ public class CsvExporterImpl implements TaskHistoryExporter {
         OutputStreamWriter writer = new OutputStreamWriter(outputStream, StandardCharsets.UTF_8);
 
         CSVFormat csvFormat = CSVFormat.Builder.create()
-            .setHeader("ID", "Title", "Occurred At", "Action", "First Name")
+            .setHeader("ID", "Title", "Description","Occurred At", "Action", "Person")
             .setSkipHeaderRecord(true)
             .build();
 
@@ -38,9 +38,10 @@ public class CsvExporterImpl implements TaskHistoryExporter {
                 printer.printRecord(
                     "ID", task.getId(),
                     "Title", task.getTask().getTitle(),
+                    "Description", task.getTask().getDescription(),
                     "Occurred At", task.getOccuredAt(),
                     "Action", task.getType(),
-                    "First Name", task.getPerson().getFirstName()
+                    "Person", task.getPerson().getFirstName() + " " + task.getPerson().getLastName()
                 );
             }
 
