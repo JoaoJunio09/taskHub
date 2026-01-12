@@ -39,7 +39,7 @@ public class CsvExporterImpl implements TaskHistoryExporter {
                     "ID", task.getId(),
                     "Title", task.getTask().getTitle(),
                     "Description", task.getTask().getDescription(),
-                    "Occurred At", task.getOccuredAt(),
+                    "Occurred At", task.getOccurredAt(),
                     "Action", task.getType(),
                     "Person", task.getPerson().getFirstName() + " " + task.getPerson().getLastName()
                 );

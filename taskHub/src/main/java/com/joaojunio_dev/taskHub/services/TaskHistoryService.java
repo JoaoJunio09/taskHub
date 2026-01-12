@@ -38,7 +38,8 @@ public class TaskHistoryService {
 
         try {
             TaskHistoryExporter exporter = this.exporter.getExporter(acceptHeader);
-            return exporter.exportTasks(findAll());
+            var list = findAll();
+            return exporter.exportTasks(list);
         } catch (Exception e) {
             throw new RuntimeException("Error during file export", e);
         }

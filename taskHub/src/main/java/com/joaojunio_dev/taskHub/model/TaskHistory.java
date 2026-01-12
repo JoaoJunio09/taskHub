@@ -18,7 +18,7 @@ public class TaskHistory {
     private TypeOfMovimentInTask type;
 
     @Column(nullable = false)
-    private LocalDateTime occuredAt;
+    private LocalDateTime occurredAt;
 
     @ManyToOne(fetch = FetchType.EAGER)
     private Task task;
@@ -28,10 +28,10 @@ public class TaskHistory {
 
     public TaskHistory() {}
 
-    public TaskHistory(Long id, TypeOfMovimentInTask type, LocalDateTime occuredAt, Task task, Person person) {
+    public TaskHistory(Long id, TypeOfMovimentInTask type, LocalDateTime occurredAt, Task task, Person person) {
         this.id = id;
         this.type = type;
-        this.occuredAt = occuredAt;
+        this.occurredAt = occurredAt;
         this.task = task;
         this.person = person;
     }
@@ -44,20 +44,20 @@ public class TaskHistory {
         this.id = id;
     }
 
-    public TypeOfMovimentInTask getType() {
-        return type;
+    public Integer getType() {
+        return type.ordinal();
     }
 
     public void setType(TypeOfMovimentInTask type) {
         this.type = type;
     }
 
-    public LocalDateTime getOccuredAt() {
-        return occuredAt;
+    public LocalDateTime getOccurredAt() {
+        return occurredAt;
     }
 
-    public void setOccuredAt(LocalDateTime occuredAt) {
-        this.occuredAt = occuredAt;
+    public void setOccurredAt(LocalDateTime occuredAt) {
+        this.occurredAt = occuredAt;
     }
 
     public Task getTask() {
@@ -81,14 +81,14 @@ public class TaskHistory {
         if (o == null || getClass() != o.getClass()) return false;
 
         TaskHistory that = (TaskHistory) o;
-        return Objects.equals(getId(), that.getId()) && getType() == that.getType() && Objects.equals(getOccuredAt(), that.getOccuredAt()) && Objects.equals(getTask(), that.getTask()) && Objects.equals(getPerson(), that.getPerson());
+        return Objects.equals(getId(), that.getId()) && getType() == that.getType() && Objects.equals(getOccurredAt(), that.getOccurredAt()) && Objects.equals(getTask(), that.getTask()) && Objects.equals(getPerson(), that.getPerson());
     }
 
     @Override
     public int hashCode() {
         int result = Objects.hashCode(getId());
         result = 31 * result + Objects.hashCode(getType());
-        result = 31 * result + Objects.hashCode(getOccuredAt());
+        result = 31 * result + Objects.hashCode(getOccurredAt());
         result = 31 * result + Objects.hashCode(getTask());
         result = 31 * result + Objects.hashCode(getPerson());
         return result;

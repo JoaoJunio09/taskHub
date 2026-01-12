@@ -41,7 +41,7 @@ public class XlsxExporterImpl implements TaskHistoryExporter {
                 row.createCell(0).setCellValue(task.getId());
                 row.createCell(1).setCellValue(task.getTask().getTitle());
                 row.createCell(2).setCellValue(task.getTask().getDescription());
-                row.createCell(3).setCellValue(task.getOccuredAt());
+                row.createCell(3).setCellValue(task.getOccurredAt());
                 row.createCell(4).setCellValue(String.valueOf(task.getType()));
                 row.createCell(5).setCellValue(task.getPerson().getFirstName() + " " + task.getPerson().getLastName());
             }
