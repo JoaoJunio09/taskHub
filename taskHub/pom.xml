@@ -35,6 +35,8 @@
 		<commons-csv.version>1.12.0</commons-csv.version>
 		<apachepoi.version>5.4.1</apachepoi.version>
 		<jasperreports.version>7.0.1</jasperreports.version>
+		<zxing.version>3.5.3</zxing.version>
+		<backblaze.version>6.4.0</backblaze.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -110,6 +112,28 @@
 			<groupId>net.sf.jasperreports</groupId>
 			<artifactId>jasperreports-pdf</artifactId>
 			<version>${jasperreports.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.zxing</groupId>
+			<artifactId>core</artifactId>
+			<version>${zxing.version}</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.google.zxing</groupId>
+			<artifactId>javase</artifactId>
+			<version>${zxing.version}</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.backblaze.b2</groupId>
+			<artifactId>b2-sdk-core</artifactId>
+			<version>${backblaze.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.backblaze.b2</groupId>
+			<artifactId>b2-sdk-httpclient</artifactId>
+			<version>${backblaze.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.fasterxml.jackson.dataformat</groupId>

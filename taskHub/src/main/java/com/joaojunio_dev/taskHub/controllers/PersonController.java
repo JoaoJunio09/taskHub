@@ -2,12 +2,14 @@ package com.joaojunio_dev.taskHub.controllers;
 
 import com.joaojunio_dev.taskHub.controllers.docs.PersonControllerDocs;
 import com.joaojunio_dev.taskHub.data.dto.PersonDTO;
+import com.joaojunio_dev.taskHub.data.dto.backblaze.B2ResponseDTO;
 import com.joaojunio_dev.taskHub.mediatype.MediaTypes;
 import com.joaojunio_dev.taskHub.services.PersonService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -38,6 +40,16 @@ public class PersonController implements PersonControllerDocs {
     @Override
     public ResponseEntity<PersonDTO> findById(@PathVariable Long id) {
         return ResponseEntity.ok().body(service.findById(id));
+    }
+
+    @GetMapping(
+        value = "/uploadProfileImage",
+        produces = {
+            MediaTypes.APPLICATION_JSON,
+            MediaTypes.APPLICATION_XML,
+            MediaTypes.APPLICATION_YAML })
+    public ResponseEntity<?> uploadProfileImage(@RequestParam("image")MultipartFile image) {
+        return null;
     }
 
     @PostMapping(

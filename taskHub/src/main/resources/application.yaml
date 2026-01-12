@@ -32,5 +32,10 @@ web-push:
     public-key: BGkzHGbnUqBqE_2abbp0HDsFdzMdBmfA-mc7LZtKm156oXwDu8TK5Zs1BLptLpkA5D9kEjynH6K6iKPkqRWN40c
     private-key: hNtIQfBu4lt5rFadP3wPKNQkqHV9Bf7W2e8xD-55tUo
     subject: jotacastrotrd@gmail.com
+b2:
+  keyId: 005df139ad1f5050000000002
+  applicationKey: K0058107cKQZn7o1QYeIEXD2QnCSkW4
+  bucketName: taskhub-profileimage
+  userAgent: taskhub/0.0.1
 file:
   uploadDir: /Temp/taskHub

@@ -78,7 +78,17 @@ public class CustomizedExceptionResponse {
     }
 
     @ExceptionHandler(FileStorageException.class)
-    public ResponseEntity<ExceptionResponse> notPossibleSendNotificationExceptionHandler(FileStorageException ex, WebRequest request) {
+    public ResponseEntity<ExceptionResponse> fileStorageExceptionHandler(FileStorageException ex, WebRequest request) {
+        ExceptionResponse exceptionResponse = new ExceptionResponse(
+                ex.getMessage(),
+                request.getDescription(true),
+                new Date()
+        );
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(FileStorageException.class)
+    public ResponseEntity<ExceptionResponse> b2ExceptionHandler(FileStorageException ex, WebRequest request) {
         ExceptionResponse exceptionResponse = new ExceptionResponse(
                 ex.getMessage(),
                 request.getDescription(true),

@@ -28,6 +28,8 @@ public class Person {
     @Column(nullable = false)
     private String email;
 
+    private String profileImageId;
+
     @OneToMany(mappedBy = "person", fetch = FetchType.EAGER)
     private Set<Task> tasks;
 
