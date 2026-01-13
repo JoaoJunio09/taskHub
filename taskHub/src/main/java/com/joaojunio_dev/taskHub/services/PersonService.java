@@ -1,18 +1,20 @@
 package com.joaojunio_dev.taskHub.services;
 
-import com.backblaze.b2.client.structures.B2FileVersion;
 import com.joaojunio_dev.taskHub.controllers.PersonController;
 import com.joaojunio_dev.taskHub.data.dto.PersonDTO;
-import com.joaojunio_dev.taskHub.data.dto.backblaze.B2ResponseDTO;
-import com.joaojunio_dev.taskHub.exceptions.B2InvalidFileFormatException;
+import com.joaojunio_dev.taskHub.data.dto.storage.StoredFileResponse;
+import com.joaojunio_dev.taskHub.exceptions.FileInvalidFormatException;
+import com.joaojunio_dev.taskHub.exceptions.FileStorageException;
 import com.joaojunio_dev.taskHub.exceptions.NotFoundException;
 import com.joaojunio_dev.taskHub.exceptions.ObjectIsNullException;
-import com.joaojunio_dev.taskHub.infrastructure.storage.cloud.CloudFileStorage;
+import com.joaojunio_dev.taskHub.infrastructure.storage.cloud.B2ProfileImageStorage;
 import com.joaojunio_dev.taskHub.model.Person;
 import com.joaojunio_dev.taskHub.repositories.PersonRepository;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -32,7 +34,7 @@ public class PersonService {
     PersonRepository repository;
 
     @Autowired
-    private CloudFileStorage cloudFileStorage;
+    private B2ProfileImageStorage cloudFileGateway;
 
     public List<PersonDTO> findAll() {
 
@@ -97,26 +99,33 @@ public class PersonService {
         repository.delete(entity);
     }
 
-    public B2ResponseDTO uploadProfileImage(Long id, MultipartFile image) {
+    public StoredFileResponse uploadProfileImage(Long id, MultipartFile image) {
+
+        logger.info("Uploading is Profile Image!");
+
         if (!validationContentType(image)) {
-            throw new B2InvalidFileFormatException("The file format ir not supported");
+            throw new FileInvalidFormatException("The file format ir not supported");
         }
 
         Person person = repository.findById(id)
             .orElseThrow(() -> new NotFoundException("Not Found this ID : " + id));
 
-        B2FileVersion fileVersion = cloudFileStorage.uploadProfileImage(image);
+        StoredFileResponse response = cloudFileGateway.uploadProfileImage(image);
 
-        person.setProfileImageFileId(fileVersion.getFileId());
+        person.setProfileImageFileId(response.getFileId());
         repository.save(person);
 
-        return new B2ResponseDTO(
-            fileVersion.getFileName(),
-            fileVersion.getContentType(),
-            fileVersion.getContentLength(),
-            fileVersion.getFileId(),
-            person.getId()
-        );
+        return response;
+    }
+
+    public Resource getProfileImage(String fileId) {
+
+        logger.info("Getting is Profile Image!");
+
+        if (StringUtils.isBlank(fileId) && StringUtils.isEmpty(fileId)) {
+            throw new FileStorageException("File Id is blank or empty!");
+        }
+        return cloudFileGateway.getProfileImage(fileId);
     }
 
     private static boolean validationContentType(MultipartFile image) {

@@ -5,7 +5,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 
@@ -87,18 +86,8 @@ public class CustomizedExceptionResponse {
         return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(B2Exception.class)
-    public ResponseEntity<ExceptionResponse> b2ExceptionHandler(B2Exception ex, WebRequest request) {
-        ExceptionResponse exceptionResponse = new ExceptionResponse(
-            ex.getMessage(),
-            request.getDescription(true),
-            new Date()
-        );
-        return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
-    }
-
-    @ExceptionHandler(B2InvalidFileFormatException.class)
-    public ResponseEntity<ExceptionResponse> b2InvalidFileFormatExceptionHandler(B2InvalidFileFormatException ex, WebRequest request) {
+    @ExceptionHandler(FileInvalidFormatException.class)
+    public ResponseEntity<ExceptionResponse> b2InvalidFileFormatExceptionHandler(FileInvalidFormatException ex, WebRequest request) {
         ExceptionResponse exceptionResponse = new ExceptionResponse(
             ex.getMessage(),
             request.getDescription(true),
