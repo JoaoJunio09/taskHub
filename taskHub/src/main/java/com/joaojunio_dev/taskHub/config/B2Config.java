@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@EnableConfigurationProperties(B2Config.class)
+@EnableConfigurationProperties(B2Properties.class)
 public class B2Config {
 
     @Bean

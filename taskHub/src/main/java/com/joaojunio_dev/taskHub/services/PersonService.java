@@ -1,21 +1,25 @@
 package com.joaojunio_dev.taskHub.services;
 
+import com.backblaze.b2.client.structures.B2FileVersion;
 import com.joaojunio_dev.taskHub.controllers.PersonController;
 import com.joaojunio_dev.taskHub.data.dto.PersonDTO;
+import com.joaojunio_dev.taskHub.data.dto.backblaze.B2ResponseDTO;
+import com.joaojunio_dev.taskHub.exceptions.B2InvalidFileFormatException;
 import com.joaojunio_dev.taskHub.exceptions.NotFoundException;
 import com.joaojunio_dev.taskHub.exceptions.ObjectIsNullException;
+import com.joaojunio_dev.taskHub.infrastructure.storage.cloud.CloudFileStorage;
 import com.joaojunio_dev.taskHub.model.Person;
 import com.joaojunio_dev.taskHub.repositories.PersonRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
 import java.util.List;
 
 import static com.joaojunio_dev.taskHub.mapper.ObjectMapper.parseListObjects;
-import static com.joaojunio_dev.taskHub.mapper.ObjectMapper.parseObject;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
@@ -26,6 +30,9 @@ public class PersonService {
 
     @Autowired
     PersonRepository repository;
+
+    @Autowired
+    private CloudFileStorage cloudFileStorage;
 
     public List<PersonDTO> findAll() {
 
@@ -50,8 +57,7 @@ public class PersonService {
 
         var entity = repository.findById(id)
             .orElseThrow(() -> new NotFoundException("Not found this ID : " + id));
-        var dto = parseObject(entity, PersonDTO.class);
-        return addHateoas(dto);
+        return addHateoas(convertEntityToDto(entity, entity.getProfileImageFileId()));
     }
 
     public PersonDTO create(PersonDTO dto) {
@@ -64,7 +70,7 @@ public class PersonService {
 
         var entity = (convertDtoToEntity(dto));
         repository.save(entity);
-        return addHateoas(convertEntityToDto(entity));
+        return addHateoas(convertEntityToDto(entity, entity.getProfileImageFileId()));
     }
 
     public PersonDTO update(PersonDTO dto) {
@@ -79,7 +85,7 @@ public class PersonService {
         entity.setPhone(dto.getPhone());
         entity.setEmail(dto.getEmail());
         repository.save(entity);
-        return addHateoas(convertEntityToDto(entity));
+        return addHateoas(convertEntityToDto(entity, entity.getProfileImageFileId()));
     }
 
     public void delete(Long id) {
@@ -91,6 +97,33 @@ public class PersonService {
         repository.delete(entity);
     }
 
+    public B2ResponseDTO uploadProfileImage(Long id, MultipartFile image) {
+        if (!validationContentType(image)) {
+            throw new B2InvalidFileFormatException("The file format ir not supported");
+        }
+
+        Person person = repository.findById(id)
+            .orElseThrow(() -> new NotFoundException("Not Found this ID : " + id));
+
+        B2FileVersion fileVersion = cloudFileStorage.uploadProfileImage(image);
+
+        person.setProfileImageFileId(fileVersion.getFileId());
+        repository.save(person);
+
+        return new B2ResponseDTO(
+            fileVersion.getFileName(),
+            fileVersion.getContentType(),
+            fileVersion.getContentLength(),
+            fileVersion.getFileId(),
+            person.getId()
+        );
+    }
+
+    private static boolean validationContentType(MultipartFile image) {
+        return image.getContentType().equalsIgnoreCase("image/jpeg") ||
+            image.getContentType().equalsIgnoreCase("image/png");
+    }
+
     private PersonDTO addHateoas(PersonDTO dto) {
         dto.add(linkTo(methodOn(PersonController.class).findById(dto.getId())).withSelfRel().withType("GET"));
         dto.add(linkTo(methodOn(PersonController.class).findAll()).withRel("findAll").withType("GET"));
@@ -100,7 +133,7 @@ public class PersonService {
         return dto;
     }
 
-    protected PersonDTO convertEntityToDto(Person entity) {
+    protected PersonDTO convertEntityToDto(Person entity, String fileId) {
         PersonDTO dto;
         dto = new PersonDTO(
             entity.getId(),
@@ -110,6 +143,7 @@ public class PersonService {
             entity.getPhone(),
             entity.getEmail()
         );
+        if (fileId != null) dto.setProfileImageFileId(fileId);
         return dto;
     }
 

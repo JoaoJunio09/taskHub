@@ -1,8 +1,10 @@
 package com.joaojunio_dev.taskHub.controllers;
 
+import com.backblaze.b2.client.structures.B2FileVersion;
 import com.joaojunio_dev.taskHub.controllers.docs.PersonControllerDocs;
 import com.joaojunio_dev.taskHub.data.dto.PersonDTO;
 import com.joaojunio_dev.taskHub.data.dto.backblaze.B2ResponseDTO;
+import com.joaojunio_dev.taskHub.exceptions.B2InvalidFileFormatException;
 import com.joaojunio_dev.taskHub.mediatype.MediaTypes;
 import com.joaojunio_dev.taskHub.services.PersonService;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Map;
 
 @Tag(name = "Person")
 @RestController
@@ -43,13 +46,15 @@ public class PersonController implements PersonControllerDocs {
     }
 
     @GetMapping(
-        value = "/uploadProfileImage",
+        value = "/uploadProfileImage/{id}",
         produces = {
             MediaTypes.APPLICATION_JSON,
             MediaTypes.APPLICATION_XML,
             MediaTypes.APPLICATION_YAML })
-    public ResponseEntity<?> uploadProfileImage(@RequestParam("image")MultipartFile image) {
-        return null;
+    public ResponseEntity<?> uploadProfileImage(
+        @PathVariable Long id,
+        @RequestParam("image") MultipartFile image) {
+        return ResponseEntity.ok().body(service.uploadProfileImage(id, image));
     }
 
     @PostMapping(

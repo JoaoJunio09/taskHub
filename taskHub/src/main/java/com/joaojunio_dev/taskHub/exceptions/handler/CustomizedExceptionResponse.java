@@ -80,19 +80,29 @@ public class CustomizedExceptionResponse {
     @ExceptionHandler(FileStorageException.class)
     public ResponseEntity<ExceptionResponse> fileStorageExceptionHandler(FileStorageException ex, WebRequest request) {
         ExceptionResponse exceptionResponse = new ExceptionResponse(
-                ex.getMessage(),
-                request.getDescription(true),
-                new Date()
+            ex.getMessage(),
+            request.getDescription(true),
+            new Date()
         );
         return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(FileStorageException.class)
-    public ResponseEntity<ExceptionResponse> b2ExceptionHandler(FileStorageException ex, WebRequest request) {
+    @ExceptionHandler(B2Exception.class)
+    public ResponseEntity<ExceptionResponse> b2ExceptionHandler(B2Exception ex, WebRequest request) {
         ExceptionResponse exceptionResponse = new ExceptionResponse(
-                ex.getMessage(),
-                request.getDescription(true),
-                new Date()
+            ex.getMessage(),
+            request.getDescription(true),
+            new Date()
+        );
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(B2InvalidFileFormatException.class)
+    public ResponseEntity<ExceptionResponse> b2InvalidFileFormatExceptionHandler(B2InvalidFileFormatException ex, WebRequest request) {
+        ExceptionResponse exceptionResponse = new ExceptionResponse(
+            ex.getMessage(),
+            request.getDescription(true),
+            new Date()
         );
         return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
     }

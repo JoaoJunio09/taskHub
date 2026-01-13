@@ -2,9 +2,8 @@ package com.joaojunio_dev.taskHub.controllers;
 
 import com.joaojunio_dev.taskHub.controllers.docs.FileControllerDocs;
 import com.joaojunio_dev.taskHub.data.dto.file.UploadResponseDTO;
-import com.joaojunio_dev.taskHub.services.file.FileStorageService;
+import com.joaojunio_dev.taskHub.infrastructure.storage.local.LocalFileStorage;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,7 +28,7 @@ public class FileController implements FileControllerDocs {
     private static final Logger logger = LoggerFactory.getLogger(FileController.class.getName());
 
     @Autowired
-    private FileStorageService service;
+    private LocalFileStorage service;
 
     @PostMapping("/uploadFile")
     @Override

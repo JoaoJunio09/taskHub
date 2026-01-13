@@ -1,0 +1,76 @@
+package com.joaojunio_dev.taskHub.infrastructure.storage.local;
+
+import com.joaojunio_dev.taskHub.config.FileStorageConfig;
+import com.joaojunio_dev.taskHub.exceptions.FileStorageException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+
+@Component
+public class LocalFileStorage {
+
+    private static final Logger logger = LoggerFactory.getLogger(LocalFileStorage.class.getName());
+
+    private final Path fileStorageLocation;
+
+    @Autowired
+    public LocalFileStorage(FileStorageConfig fileStorageConfig) {
+        Path path = Paths.get(fileStorageConfig.getUploadDir()).toAbsolutePath().normalize();
+
+        this.fileStorageLocation = path;
+        try {
+            logger.info("Creating Directories");
+            Files.createDirectories(this.fileStorageLocation);
+        }
+        catch (Exception e) {
+            logger.error("Error in create Directories");
+            throw new FileStorageException("Error in create Directories");
+        }
+    }
+
+    public String storeFile(MultipartFile file) {
+        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+
+        try {
+            if (fileName.contains("..")) {
+                logger.error("Sorry! The file contains invalid characters");
+                throw new FileStorageException("Sorry! The file contains invalid characters");
+            }
+
+            logger.info("Saving in Disk!");
+
+            Path targetLocation = this.fileStorageLocation.resolve(fileName);
+            Files.copy(file.getInputStream(), targetLocation, StandardCopyOption.REPLACE_EXISTING);
+            return fileName;
+        } catch (IOException e) {
+            logger.error("Could not store file " + fileName + ". Please try Again!");
+            throw new FileStorageException("Could not store file " + fileName + ". Please try Again!");
+        }
+    }
+
+    public Resource loadFileAsResource(String fileName) {
+        try {
+            Path filePath = this.fileStorageLocation.resolve(fileName).normalize();
+            Resource resource = new UrlResource(filePath.toUri());
+            if (!resource.exists()) {
+                logger.info("File not found " + fileName);
+                throw new FileStorageException("File not found " + fileName);
+            }
+            return resource;
+        } catch (Exception e) {
+            logger.error("File not found " + fileName);
+            throw new FileStorageException("File not found " + fileName);
+        }
+    }
+}

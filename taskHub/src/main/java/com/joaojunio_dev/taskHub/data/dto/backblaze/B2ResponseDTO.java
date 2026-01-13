@@ -2,8 +2,7 @@ package com.joaojunio_dev.taskHub.data.dto.backblaze;
 
 public class B2ResponseDTO {
 
-    private String filName;
-    private String fileVersion;
+    private String fileName;
     private String contentType;
     private Long size;
     private String fileId;
@@ -11,29 +10,20 @@ public class B2ResponseDTO {
 
     public B2ResponseDTO() {}
 
-    public B2ResponseDTO(String filName, String fileVersion, String contentType, Long size, String fileId, Long personId) {
-        this.filName = filName;
-        this.fileVersion = fileVersion;
+    public B2ResponseDTO(String fileName, String contentType, Long size, String fileId, Long personId) {
+        this.fileName = fileName;
         this.contentType = contentType;
         this.size = size;
         this.fileId = fileId;
         this.personId = personId;
     }
 
-    public String getFilName() {
-        return filName;
+    public String getFileName() {
+        return fileName;
     }
 
-    public void setFilName(String filName) {
-        this.filName = filName;
-    }
-
-    public String getFileVersion() {
-        return fileVersion;
-    }
-
-    public void setFileVersion(String fileVersion) {
-        this.fileVersion = fileVersion;
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
     }
 
     public String getContentType() {

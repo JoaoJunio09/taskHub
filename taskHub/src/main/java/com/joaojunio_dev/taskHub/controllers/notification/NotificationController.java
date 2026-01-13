@@ -2,7 +2,7 @@ package com.joaojunio_dev.taskHub.controllers.notification;
 
 import com.joaojunio_dev.taskHub.data.dto.notification.NotificationDTO;
 import com.joaojunio_dev.taskHub.mediatype.MediaTypes;
-import com.joaojunio_dev.taskHub.services.notification.NotificationService;
+import com.joaojunio_dev.taskHub.infrastructure.notification.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

@@ -5,7 +5,7 @@ import com.joaojunio_dev.taskHub.data.dto.TaskDTO;
 import com.joaojunio_dev.taskHub.exceptions.InvalidTypeOfDateException;
 import com.joaojunio_dev.taskHub.exceptions.NotFoundException;
 import com.joaojunio_dev.taskHub.exceptions.ObjectIsNullException;
-import com.joaojunio_dev.taskHub.file.exporter.factory.FileExporterFactory;
+import com.joaojunio_dev.taskHub.exporter.factory.FileExporterFactory;
 import com.joaojunio_dev.taskHub.model.Person;
 import com.joaojunio_dev.taskHub.model.Task;
 import com.joaojunio_dev.taskHub.model.TaskHistory;

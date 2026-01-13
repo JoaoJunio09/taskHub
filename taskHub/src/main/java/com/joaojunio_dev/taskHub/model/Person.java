@@ -28,7 +28,8 @@ public class Person {
     @Column(nullable = false)
     private String email;
 
-    private String profileImageId;
+    @Column
+    private String profileImageFileId;
 
     @OneToMany(mappedBy = "person", fetch = FetchType.EAGER)
     private Set<Task> tasks;
@@ -109,6 +110,14 @@ public class Person {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getProfileImageFileId() {
+        return profileImageFileId;
+    }
+
+    public void setProfileImageFileId(String profileImageFileId) {
+        this.profileImageFileId = profileImageFileId;
     }
 
     @Override

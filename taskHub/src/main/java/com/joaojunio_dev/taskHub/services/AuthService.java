@@ -5,7 +5,7 @@ import com.joaojunio_dev.taskHub.data.dto.security.TokenDTO;
 import com.joaojunio_dev.taskHub.exceptions.ObjectIsNullException;
 import com.joaojunio_dev.taskHub.model.User;
 import com.joaojunio_dev.taskHub.repositories.UserRepository;
-import com.joaojunio_dev.taskHub.security.JwtTokenProvider;
+import com.joaojunio_dev.taskHub.infrastructure.security.JwtTokenProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

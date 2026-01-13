@@ -1,7 +1,7 @@
 package com.joaojunio_dev.taskHub.config;
 
-import com.joaojunio_dev.taskHub.security.JwtTokenFilter;
-import com.joaojunio_dev.taskHub.security.JwtTokenProvider;
+import com.joaojunio_dev.taskHub.infrastructure.security.JwtTokenFilter;
+import com.joaojunio_dev.taskHub.infrastructure.security.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

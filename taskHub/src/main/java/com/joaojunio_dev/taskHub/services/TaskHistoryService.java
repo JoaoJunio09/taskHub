@@ -1,8 +1,8 @@
 package com.joaojunio_dev.taskHub.services;
 
 import com.joaojunio_dev.taskHub.exceptions.ObjectIsNullException;
-import com.joaojunio_dev.taskHub.file.exporter.contract.TaskHistoryExporter;
-import com.joaojunio_dev.taskHub.file.exporter.factory.FileExporterFactory;
+import com.joaojunio_dev.taskHub.exporter.contract.TaskHistoryExporter;
+import com.joaojunio_dev.taskHub.exporter.factory.FileExporterFactory;
 import com.joaojunio_dev.taskHub.model.TaskHistory;
 import com.joaojunio_dev.taskHub.repositories.TaskHistoryRepository;
 import org.slf4j.Logger;

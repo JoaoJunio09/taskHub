@@ -16,6 +16,7 @@ public class PersonDTO extends RepresentationModel<PersonDTO> implements Seriali
     private String birthDate;
     private String phone;
     private String email;
+    private String profileImageFileId;
 
     public PersonDTO() {}
 
@@ -74,6 +75,14 @@ public class PersonDTO extends RepresentationModel<PersonDTO> implements Seriali
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getProfileImageFileId() {
+        return profileImageFileId;
+    }
+
+    public void setProfileImageFileId(String profileImageFileId) {
+        this.profileImageFileId = profileImageFileId;
     }
 
     @Override
