@@ -62,9 +62,7 @@ public class PersonController implements PersonControllerDocs {
         return ResponseEntity.ok().body(service.uploadProfileImage(id, image));
     }
 
-    @GetMapping(
-        value = "/getProfileImage/{fileId}"
-    )
+    @GetMapping(value = "/getProfileImage/{fileId}")
     public ResponseEntity<Resource> getProfileImage(@PathVariable String fileId) {
 
         try {
