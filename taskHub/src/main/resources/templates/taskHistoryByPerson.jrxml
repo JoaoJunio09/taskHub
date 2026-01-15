@@ -1,0 +1,101 @@
+<!-- Created with Jaspersoft Studio version 7.0.3.final using JasperReports Library version 7.0.3-41034ca841d452f3305ba55b9042260aaa1ab5dd  -->
+<jasperReport name="taskHistoryByPerson" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="98af2dc3-7612-4913-995e-fdf467f61020">
+	<property name="com.jaspersoft.studio.data.sql.tables" value="dGFza2h1Yi50Yl9wZXJzb24gQVMgLDcyLDE1LDk5YjllY2M0LWRkYzItNDI4YS04ZTUwLTljOTk5&#xa;MjgwNGZmMjs="/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="369"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="621"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="MySQL Connection by TaskHub"/>
+	<parameter name="PERSON_ID" class="java.lang.Long"/>
+	<parameter name="PROFILE_IMAGE" class="java.io.InputStream"/>
+	<query language="SQL"><![CDATA[SELECT id,
+	birth_date AS birthDate,
+	CONCAT(first_name, ' ', last_name) AS name,
+	phone,
+	email,
+	profile_image_file_id AS profileImageFileId
+FROM taskhub.tb_person
+WHERE id = $P{PERSON_ID}
+]]></query>
+	<field name="id" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="id"/>
+		<property name="com.jaspersoft.studio.field.label" value="id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tb_person"/>
+	</field>
+	<field name="birthDate" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="birth_date"/>
+		<property name="com.jaspersoft.studio.field.label" value="birthDate"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tb_person"/>
+	</field>
+	<field name="name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="name"/>
+		<property name="com.jaspersoft.studio.field.label" value="name"/>
+	</field>
+	<field name="phone" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="phone"/>
+		<property name="com.jaspersoft.studio.field.label" value="phone"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tb_person"/>
+	</field>
+	<field name="email" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="email"/>
+		<property name="com.jaspersoft.studio.field.label" value="email"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tb_person"/>
+	</field>
+	<field name="profileImageFileId" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="profile_image_file_id"/>
+		<property name="com.jaspersoft.studio.field.label" value="profileImageFileId"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="tb_person"/>
+	</field>
+	<background splitType="Stretch"/>
+	<title height="199" splitType="Stretch">
+		<element kind="image" uuid="926a1dfb-891d-4c32-91f6-2c6b29681a5f" x="0" y="10" width="59" height="62">
+			<expression><![CDATA["C:/Users/joaoj/Downloads/Gemini_Generated_Image_ohsiw8ohsiw8ohsi.png"]]></expression>
+		</element>
+		<element kind="staticText" uuid="16212432-130d-4a2c-b93f-722eeb47ba9e" x="1" y="79" width="30" height="30" bold="true">
+			<text><![CDATA[Code]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="227e2c3b-1bf7-4200-af5b-710689517f46"/>
+		</element>
+		<element kind="textField" uuid="df626133-dda1-4ad4-a9c5-355ffac1a6c0" x="31" y="79" width="50" height="30">
+			<expression><![CDATA[$F{id}]]></expression>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="227e2c3b-1bf7-4200-af5b-710689517f46"/>
+		</element>
+		<element kind="staticText" uuid="58a86271-c904-44ac-92ec-d6e51f5cf108" x="1" y="106" width="40" height="30" bold="true">
+			<text><![CDATA[Name]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0c3c2d71-6f91-4893-b61b-4a5680db0a21"/>
+		</element>
+		<element kind="textField" uuid="c985c67c-39bf-4d9b-99d9-cd2f38a95e84" x="41" y="106" width="180" height="30">
+			<expression><![CDATA[$F{name}]]></expression>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0c3c2d71-6f91-4893-b61b-4a5680db0a21"/>
+		</element>
+		<element kind="staticText" uuid="e0e9d6b6-6fe0-4750-b80c-305c743b345d" x="1" y="135" width="50" height="28" bold="true">
+			<text><![CDATA[E-mail]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="255d7c45-60d4-4a30-9d75-ad3473d51ece"/>
+		</element>
+		<element kind="textField" uuid="32d714cc-92a1-49c6-8212-a47f6e258cab" x="51" y="135" width="170" height="30">
+			<expression><![CDATA[$F{email}]]></expression>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="255d7c45-60d4-4a30-9d75-ad3473d51ece"/>
+		</element>
+		<element kind="staticText" uuid="c1fce1de-4332-4e66-aaca-4bfa7b7b3ad0" x="1" y="163" width="50" height="30" bold="true">
+			<text><![CDATA[Phone]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="faf1a139-7e57-42f7-8fd1-c5434c3f92c7"/>
+		</element>
+		<element kind="textField" uuid="ab8d98da-f07f-4d64-a8c3-940c2b654372" x="51" y="163" width="170" height="30">
+			<expression><![CDATA[$F{phone}]]></expression>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="faf1a139-7e57-42f7-8fd1-c5434c3f92c7"/>
+		</element>
+		<element kind="image" uuid="8045f2c1-5d1b-465d-b296-52e180f4b853" x="420" y="9" width="130" height="130">
+			<expression><![CDATA[$P{PROFILE_IMAGE}]]></expression>
+		</element>
+		<element kind="component" uuid="b0352224-209d-4372-a246-67595da0ba80" x="260" y="0" width="110" height="110">
+			<component kind="barcode4j:QRCode">
+				<codeExpression><![CDATA["123456789"]]></codeExpression>
+			</component>
+		</element>
+	</title>
+	<pageHeader height="35" splitType="Stretch"/>
+	<columnHeader height="61" splitType="Stretch"/>
+	<detail>
+		<band height="125" splitType="Stretch"/>
+	</detail>
+	<columnFooter height="45" splitType="Stretch"/>
+	<pageFooter height="54" splitType="Stretch"/>
+	<summary height="42" splitType="Stretch"/>
+</jasperReport>
