@@ -1,5 +1,6 @@
 package com.joaojunio_dev.taskHub.services;
 
+import com.joaojunio_dev.taskHub.exceptions.FileStorageException;
 import com.joaojunio_dev.taskHub.exceptions.ObjectIsNullException;
 import com.joaojunio_dev.taskHub.exporter.contract.TaskHistoryExporter;
 import com.joaojunio_dev.taskHub.exporter.factory.FileExporterFactory;
@@ -23,6 +24,9 @@ public class TaskHistoryService {
 
     @Autowired
     private TaskHistoryRepository repository;
+
+    @Autowired
+    private PersonService personService;
 
     public List<TaskHistory> findAll() {
         return repository.findAll();
@@ -53,7 +57,11 @@ public class TaskHistoryService {
             TaskHistoryExporter exporter = this.exporter.getExporter(acceptHeader);
 
             var tasks = findByPersonId(personId);
-            return exporter.exportTasksByPersonId(tasks);
+            var person = personService.findEntityById(personId);
+
+            if (tasks.isEmpty() || person == null) throw new FileStorageException("Invalid: Tasks is empty or Person is null!");
+
+            return exporter.exportTasksByPersonId(tasks, person);
         } catch (Exception e) {
             throw new RuntimeException("Error during file export", e);
         }

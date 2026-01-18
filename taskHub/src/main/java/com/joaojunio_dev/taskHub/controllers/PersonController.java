@@ -64,26 +64,20 @@ public class PersonController implements PersonControllerDocs {
 
     @GetMapping(value = "/getProfileImage/{fileId}")
     public ResponseEntity<Resource> getProfileImage(@PathVariable String fileId) {
+        Resource image = service.getProfileImage(fileId);
 
-        try {
-            Resource image = service.getProfileImage(fileId);
+        var filename = cloudFileGateway.getFileName(fileId);
 
-            var filename = cloudFileGateway.getFileName(fileId);
+        String contentType = URLConnection.guessContentTypeFromName(filename);
+        contentType = contentType == null ? "application/octet-stream" : contentType;
 
-            String contentType = URLConnection.guessContentTypeFromName(filename);
-            contentType = contentType == null ? "application/octet-stream" : contentType;
-
-            return ResponseEntity.ok()
-                .contentType(MediaType.parseMediaType(contentType))
-                .header(
-                    HttpHeaders.CONTENT_DISPOSITION,
+        return ResponseEntity.ok()
+            .contentType(MediaType.parseMediaType(contentType))
+            .header(
+                HttpHeaders.CONTENT_DISPOSITION,
                 "attachment; filename=\"" + filename + "\""
-                )
-                .body(image);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
+            )
+            .body(image);
     }
 
     @PostMapping(

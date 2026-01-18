@@ -19,6 +19,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 @Component
 public class B2ProfileImageStorage implements ProfileImageStorage {
@@ -73,6 +75,11 @@ public class B2ProfileImageStorage implements ProfileImageStorage {
             e.printStackTrace();
             throw new FileStorageException("Error get/downloading profile picture");
         }
+    }
+
+    public InputStream getProfileImageInputStream(String fileId) throws IOException {
+        var resource = getProfileImage(fileId);
+        return resource.getInputStream();
     }
 
     private B2Bucket getBucket() throws Exception {

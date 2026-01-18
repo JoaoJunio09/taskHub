@@ -1,6 +1,7 @@
 package com.joaojunio_dev.taskHub.exporter.impl;
 
 import com.joaojunio_dev.taskHub.exporter.contract.TaskHistoryExporter;
+import com.joaojunio_dev.taskHub.model.Person;
 import com.joaojunio_dev.taskHub.model.TaskHistory;
 import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.springframework.core.io.ByteArrayResource;
@@ -19,7 +20,7 @@ public class XlsxExporterImpl implements TaskHistoryExporter {
     }
 
     @Override
-    public Resource exportTasksByPersonId(List<TaskHistory> tasks) throws Exception {
+    public Resource exportTasksByPersonId(List<TaskHistory> tasks, Person person) throws Exception {
         return exportingDataOfTasks(tasks);
     }
 

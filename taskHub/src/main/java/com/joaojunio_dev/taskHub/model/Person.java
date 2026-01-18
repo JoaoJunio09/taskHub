@@ -1,7 +1,11 @@
 package com.joaojunio_dev.taskHub.model;
 
+import com.joaojunio_dev.taskHub.infrastructure.storage.cloud.B2ProfileImageStorage;
 import jakarta.persistence.*;
+import org.springframework.core.io.Resource;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.time.LocalDate;
 import java.util.Set;
 

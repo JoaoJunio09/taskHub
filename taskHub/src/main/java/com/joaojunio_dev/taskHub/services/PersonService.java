@@ -34,7 +34,7 @@ public class PersonService {
     PersonRepository repository;
 
     @Autowired
-    private B2ProfileImageStorage cloudFileGateway;
+    private B2ProfileImageStorage profileImageStorageGateway;
 
     public List<PersonDTO> findAll() {
 
@@ -110,7 +110,7 @@ public class PersonService {
         Person person = repository.findById(id)
             .orElseThrow(() -> new NotFoundException("Not Found this ID : " + id));
 
-        StoredFileResponse response = cloudFileGateway.uploadProfileImage(image);
+        StoredFileResponse response = profileImageStorageGateway.uploadProfileImage(image);
 
         person.setProfileImageFileId(response.getFileId());
         repository.save(person);
@@ -125,7 +125,7 @@ public class PersonService {
         if (StringUtils.isBlank(fileId) && StringUtils.isEmpty(fileId)) {
             throw new FileStorageException("File Id is blank or empty!");
         }
-        return cloudFileGateway.getProfileImage(fileId);
+        return profileImageStorageGateway.getProfileImage(fileId);
     }
 
     private static boolean validationContentType(MultipartFile image) {
