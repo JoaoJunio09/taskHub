@@ -49,7 +49,7 @@ public class PdfExporterImpl implements TaskHistoryExporter {
     }
 
     @Override
-    public Resource exportTasksByPersonId(List<TaskHistoryReportDTO> tasks, PersonTaskHistoryReportDTO person) throws Exception {
+    public Resource exportTasksByPersonId(List<TaskHistoryReportDTO> tasks, PersonTaskHistoryReportDTO person, String routeGetProfileImage) throws Exception {
         try {
             InputStream mainTemplateStream = getClass().getResourceAsStream("/templates/taskHistoryByPerson.jrxml");
             if (mainTemplateStream == null) throw new RuntimeException("Template file not found: /templates/taskHistoryByPerson.jrxml");
@@ -60,7 +60,7 @@ public class PdfExporterImpl implements TaskHistoryExporter {
             JasperReport mainReport = JasperCompileManager.compileReport(mainTemplateStream);
             JasperReport subReport = JasperCompileManager.compileReport(subReportStream);
 
-            InputStream qrCodeStream = qrCodeService.generateQRCode(person.getProfileImageFileId(), 200, 200);
+            InputStream qrCodeStream = qrCodeService.generateQRCode(routeGetProfileImage, 200, 200);
 
             JRBeanCollectionDataSource subDataSource = new JRBeanCollectionDataSource(tasks);
 

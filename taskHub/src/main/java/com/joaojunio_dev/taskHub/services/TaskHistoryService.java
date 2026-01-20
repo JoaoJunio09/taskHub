@@ -45,7 +45,7 @@ public class TaskHistoryService {
         }
     }
 
-    public Resource exportByPersonId(String acceptHeader, Long personId) {
+    public Resource exportByPersonId(String acceptHeader, Long personId, String routeGetProfileImage) {
 
         logger.info("Exporting a Task's History by Person ID");
 
@@ -59,7 +59,7 @@ public class TaskHistoryService {
 
             if (tasks.isEmpty()) throw new FileStorageException("Invalid: Tasks is empty or Person is null!");
 
-            return exporter.exportTasksByPersonId(tasks, person);
+            return exporter.exportTasksByPersonId(tasks, person, routeGetProfileImage);
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException("Error during file export", e);

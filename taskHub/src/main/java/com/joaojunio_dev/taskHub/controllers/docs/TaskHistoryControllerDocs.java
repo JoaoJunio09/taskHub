@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestParam;
 
 public interface TaskHistoryControllerDocs {
 
@@ -44,5 +45,5 @@ public interface TaskHistoryControllerDocs {
             @ApiResponse(description = "Internal Server Error", responseCode = "500", content = @Content)
         }
     )
-    ResponseEntity<?> exportByPersonId(Long personId, HttpServletRequest request);
+    ResponseEntity<?> exportByPersonId(Long personId, String routeGetProfileImage, HttpServletRequest request);
 }

@@ -10,5 +10,8 @@ import java.util.List;
 public interface TaskHistoryExporter {
 
     Resource exportTasks(List<TaskHistory> tasks) throws Exception;
-    Resource exportTasksByPersonId(List<TaskHistoryReportDTO> tasks, PersonTaskHistoryReportDTO person) throws Exception;
+    Resource exportTasksByPersonId(
+        List<TaskHistoryReportDTO> tasks,
+        PersonTaskHistoryReportDTO person,
+        String routeGetProfileImage) throws Exception;
 }

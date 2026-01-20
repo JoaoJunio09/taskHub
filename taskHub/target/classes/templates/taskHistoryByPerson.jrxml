@@ -56,7 +56,7 @@ WHERE id = $P{PERSON_ID}
 			<text><![CDATA[Code]]></text>
 			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="227e2c3b-1bf7-4200-af5b-710689517f46"/>
 		</element>
-		<element kind="textField" uuid="df626133-dda1-4ad4-a9c5-355ffac1a6c0" x="31" y="79" width="50" height="30">
+		<element kind="textField" uuid="df626133-dda1-4ad4-a9c5-355ffac1a6c0" x="31" y="79" width="28" height="30">
 			<expression><![CDATA[$F{id}]]></expression>
 			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="227e2c3b-1bf7-4200-af5b-710689517f46"/>
 		</element>
@@ -68,19 +68,19 @@ WHERE id = $P{PERSON_ID}
 			<expression><![CDATA[$F{name}]]></expression>
 			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0c3c2d71-6f91-4893-b61b-4a5680db0a21"/>
 		</element>
-		<element kind="staticText" uuid="e0e9d6b6-6fe0-4750-b80c-305c743b345d" x="1" y="135" width="50" height="28" bold="true">
+		<element kind="staticText" uuid="e0e9d6b6-6fe0-4750-b80c-305c743b345d" x="1" y="135" width="34" height="28" bold="true">
 			<text><![CDATA[E-mail]]></text>
 			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="255d7c45-60d4-4a30-9d75-ad3473d51ece"/>
 		</element>
-		<element kind="textField" uuid="32d714cc-92a1-49c6-8212-a47f6e258cab" x="51" y="135" width="154" height="30">
+		<element kind="textField" uuid="32d714cc-92a1-49c6-8212-a47f6e258cab" x="35" y="135" width="170" height="30">
 			<expression><![CDATA[$F{email}]]></expression>
 			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="255d7c45-60d4-4a30-9d75-ad3473d51ece"/>
 		</element>
-		<element kind="staticText" uuid="c1fce1de-4332-4e66-aaca-4bfa7b7b3ad0" x="83" y="79" width="50" height="30" bold="true">
+		<element kind="staticText" uuid="c1fce1de-4332-4e66-aaca-4bfa7b7b3ad0" x="60" y="79" width="50" height="30" bold="true">
 			<text><![CDATA[Phone]]></text>
 			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="faf1a139-7e57-42f7-8fd1-c5434c3f92c7"/>
 		</element>
-		<element kind="textField" uuid="ab8d98da-f07f-4d64-a8c3-940c2b654372" x="119" y="79" width="86" height="30">
+		<element kind="textField" uuid="ab8d98da-f07f-4d64-a8c3-940c2b654372" x="110" y="79" width="95" height="30">
 			<expression><![CDATA[$F{phone}]]></expression>
 			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="faf1a139-7e57-42f7-8fd1-c5434c3f92c7"/>
 		</element>

@@ -21,7 +21,7 @@ public class XlsxExporterImpl implements TaskHistoryExporter {
     }
 
     @Override
-    public Resource exportTasksByPersonId(List<TaskHistoryReportDTO> tasks, PersonTaskHistoryReportDTO person) throws Exception {
+    public Resource exportTasksByPersonId(List<TaskHistoryReportDTO> tasks, PersonTaskHistoryReportDTO person, String routeGetProfileImage) throws Exception {
         return exportingDataOfTasksById(tasks);
     }
 

@@ -1,7 +1,6 @@
 package com.joaojunio_dev.taskHub.controllers;
 
 import com.joaojunio_dev.taskHub.controllers.docs.TaskHistoryControllerDocs;
-import com.joaojunio_dev.taskHub.data.dto.ApiResponse;
 import com.joaojunio_dev.taskHub.mediatype.MediaTypes;
 import com.joaojunio_dev.taskHub.services.PersonService;
 import com.joaojunio_dev.taskHub.services.TaskHistoryService;
@@ -12,12 +11,8 @@ import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
 import java.util.Map;
 
 @Tag(name = "Task History")
@@ -70,7 +65,10 @@ public class TaskHistoryController implements TaskHistoryControllerDocs {
             MediaTypes.APPLICATION_PDF_VALUE,
             MediaTypes.APPLICATION_JSON })
     @Override
-    public ResponseEntity<?> exportByPersonId(@PathVariable Long personId, HttpServletRequest request) {
+    public ResponseEntity<?> exportByPersonId(
+            @PathVariable Long personId,
+            @RequestParam String routeGetProfileImage,
+            HttpServletRequest request) {
         personService.findById(personId);
 
         String acceptHeader = request.getHeader(HttpHeaders.ACCEPT);
