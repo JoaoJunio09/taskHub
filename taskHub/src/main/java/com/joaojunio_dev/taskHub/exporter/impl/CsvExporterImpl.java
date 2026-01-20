@@ -1,10 +1,12 @@
 package com.joaojunio_dev.taskHub.exporter.impl;
 
+import com.joaojunio_dev.taskHub.data.dto.report.PersonTaskHistoryReportDTO;
+import com.joaojunio_dev.taskHub.data.dto.report.TaskHistoryReportDTO;
 import com.joaojunio_dev.taskHub.exporter.contract.TaskHistoryExporter;
-import com.joaojunio_dev.taskHub.model.Person;
 import com.joaojunio_dev.taskHub.model.TaskHistory;
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVPrinter;
 import org.apache.commons.io.output.ByteArrayOutputStream;
-import org.apache.commons.csv.*;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
@@ -21,8 +23,8 @@ public class CsvExporterImpl implements TaskHistoryExporter {
     }
 
     @Override
-    public Resource exportTasksByPersonId(List<TaskHistory> tasks, Person person) throws Exception {
-        return exportingDataOfTasks(tasks);
+    public Resource exportTasksByPersonId(List<TaskHistoryReportDTO> tasks, PersonTaskHistoryReportDTO person) throws Exception {
+        return exportingDataOfTasksById(tasks);
     }
 
     private ByteArrayResource exportingDataOfTasks(List<TaskHistory> tasks) throws Exception {
@@ -43,6 +45,31 @@ public class CsvExporterImpl implements TaskHistoryExporter {
                     "Occurred At", task.getOccurredAt(),
                     "Action", task.getType(),
                     "Person", task.getPerson().getFirstName() + " " + task.getPerson().getLastName()
+                );
+            }
+
+            printer.flush();
+            return new ByteArrayResource(outputStream.toByteArray());
+        }
+    }
+
+    private ByteArrayResource exportingDataOfTasksById(List<TaskHistoryReportDTO> tasks) throws Exception {
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        OutputStreamWriter writer = new OutputStreamWriter(outputStream, StandardCharsets.UTF_8);
+
+        CSVFormat csvFormat = CSVFormat.Builder.create()
+            .setHeader("ID", "Title", "Description","Occurred At", "Action")
+            .setSkipHeaderRecord(true)
+            .build();
+
+        try (CSVPrinter printer = new CSVPrinter(writer, csvFormat)) {
+            for (TaskHistoryReportDTO task : tasks) {
+                printer.printRecord(
+                    "ID", task.getId(),
+                    "Title", task.getTitle(),
+                    "Description", task.getDescription(),
+                    "Occurred At", task.getOccurredAt(),
+                    "Action", task.getAction()
                 );
             }
 

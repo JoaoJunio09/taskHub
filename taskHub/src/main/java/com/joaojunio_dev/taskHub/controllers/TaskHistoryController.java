@@ -1,8 +1,8 @@
 package com.joaojunio_dev.taskHub.controllers;
 
 import com.joaojunio_dev.taskHub.controllers.docs.TaskHistoryControllerDocs;
-import com.joaojunio_dev.taskHub.mediatype.MediaTypes;
 import com.joaojunio_dev.taskHub.data.dto.ApiResponse;
+import com.joaojunio_dev.taskHub.mediatype.MediaTypes;
 import com.joaojunio_dev.taskHub.services.PersonService;
 import com.joaojunio_dev.taskHub.services.TaskHistoryService;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -65,26 +65,16 @@ public class TaskHistoryController implements TaskHistoryControllerDocs {
     @GetMapping(
         value = "/export/by-person/{personId}",
         produces = {
-            MediaTypes.APPLICATION_JSON,
             MediaTypes.APPLICATION_CSV_VALUE,
             MediaTypes.APPLICATION_XLSX_VALUE,
-            MediaTypes.APPLICATION_PDF_VALUE })
+            MediaTypes.APPLICATION_PDF_VALUE,
+            MediaTypes.APPLICATION_JSON })
     @Override
     public ResponseEntity<?> exportByPersonId(@PathVariable Long personId, HttpServletRequest request) {
         personService.findById(personId);
 
         String acceptHeader = request.getHeader(HttpHeaders.ACCEPT);
         var contentType = acceptHeader != null ? acceptHeader : "application/octet-stream";
-
-        if (service.findByPersonId(personId).isEmpty()) {
-            return ResponseEntity.ok()
-                .contentType(MediaType.APPLICATION_JSON)
-                .body(
-                    new ApiResponse(
-                        "This person has no task history to export!",
-                        200,
-                        LocalDateTime.now().toString()));
-        }
 
         Resource file = service.exportByPersonId(acceptHeader, personId);
 
@@ -95,7 +85,7 @@ public class TaskHistoryController implements TaskHistoryControllerDocs {
         );
 
         var extension = extensionMap.getOrDefault(acceptHeader, "");
-        var filename = "tasks_history_exported" + extension;
+        var filename = "tasks_history_by_person_exported" + extension;
 
         return ResponseEntity.ok()
             .contentType(MediaType.parseMediaType(contentType))

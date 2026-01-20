@@ -64,7 +64,7 @@ public class B2ProfileImageStorage implements ProfileImageStorage {
             B2FileVersion fileVersion = client.getFileInfo(fileId);
 
             ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-            B2ContentSink sink = (headers, inputStream) ->inputStream.transferTo(outputStream);
+            B2ContentSink sink = (headers, inputStream) -> inputStream.transferTo(outputStream);
             client.downloadById(fileId, sink);
 
             byte[] data = outputStream.toByteArray();
@@ -72,7 +72,6 @@ public class B2ProfileImageStorage implements ProfileImageStorage {
             return new ByteArrayResource(data);
         }
         catch (Exception e) {
-            e.printStackTrace();
             throw new FileStorageException("Error get/downloading profile picture");
         }
     }

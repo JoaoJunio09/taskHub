@@ -4,13 +4,13 @@ import com.joaojunio_dev.taskHub.exceptions.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 
 import java.util.Date;
 
-@RestControllerAdvice
+@ControllerAdvice
+@RestController
 public class CustomizedExceptionResponse {
 
     @ExceptionHandler(Exception.class)
@@ -20,7 +20,10 @@ public class CustomizedExceptionResponse {
             request.getDescription(true),
             new Date()
         );
-        return new ResponseEntity<>(exceptionResponse, HttpStatus.NOT_FOUND);
+        return ResponseEntity
+            .status(HttpStatus.INTERNAL_SERVER_ERROR)
+            .contentType(MediaType.APPLICATION_JSON)
+            .body(exceptionResponse);
     }
 
     @ExceptionHandler(NotFoundException.class)
