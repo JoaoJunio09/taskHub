@@ -1,6 +1,7 @@
 package com.joaojunio_dev.taskHub.controllers;
 
 import com.joaojunio_dev.taskHub.controllers.docs.TaskHistoryControllerDocs;
+import com.joaojunio_dev.taskHub.data.dto.TaskHistoryDTO;
 import com.joaojunio_dev.taskHub.mediatype.MediaTypes;
 import com.joaojunio_dev.taskHub.services.PersonService;
 import com.joaojunio_dev.taskHub.services.TaskHistoryService;
@@ -13,6 +14,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @Tag(name = "Task History")
@@ -25,6 +27,16 @@ public class TaskHistoryController implements TaskHistoryControllerDocs {
 
     @Autowired
     private PersonService personService;
+
+    @GetMapping(
+        value = "/findByPerson/{personId}",
+        produces = {
+            MediaTypes.APPLICATION_JSON,
+            MediaTypes.APPLICATION_XML,
+            MediaTypes.APPLICATION_YAML })
+    public ResponseEntity<List<TaskHistoryDTO>> findByPersonId(@PathVariable Long personId) {
+        return ResponseEntity.ok().body(service.findByPersonId(personId));
+    }
 
     @GetMapping(
         value = "/export",
@@ -58,7 +70,7 @@ public class TaskHistoryController implements TaskHistoryControllerDocs {
     }
 
     @GetMapping(
-        value = "/export/by-person/{personId}",
+        value = "/export/byPerson/{personId}",
         produces = {
             MediaTypes.APPLICATION_CSV_VALUE,
             MediaTypes.APPLICATION_XLSX_VALUE,
@@ -74,7 +86,7 @@ public class TaskHistoryController implements TaskHistoryControllerDocs {
         String acceptHeader = request.getHeader(HttpHeaders.ACCEPT);
         var contentType = acceptHeader != null ? acceptHeader : "application/octet-stream";
 
-        Resource file = service.exportByPersonId(acceptHeader, personId);
+        Resource file = service.exportByPersonId(acceptHeader, personId, routeGetProfileImage);
 
         Map<String, String> extensionMap = Map.of(
             MediaTypes.APPLICATION_CSV_VALUE, ".csv",

@@ -1,5 +1,6 @@
 package com.joaojunio_dev.taskHub.services;
 
+import com.joaojunio_dev.taskHub.data.dto.TaskHistoryDTO;
 import com.joaojunio_dev.taskHub.data.dto.report.PersonTaskHistoryReportDTO;
 import com.joaojunio_dev.taskHub.data.dto.report.TaskHistoryReportDTO;
 import com.joaojunio_dev.taskHub.exceptions.FileStorageException;
@@ -8,6 +9,7 @@ import com.joaojunio_dev.taskHub.exporter.contract.TaskHistoryExporter;
 import com.joaojunio_dev.taskHub.exporter.factory.FileExporterFactory;
 import com.joaojunio_dev.taskHub.model.Person;
 import com.joaojunio_dev.taskHub.model.TaskHistory;
+import com.joaojunio_dev.taskHub.model.enums.TypeOfMovimentInTask;
 import com.joaojunio_dev.taskHub.repositories.TaskHistoryRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,6 +34,13 @@ public class TaskHistoryService {
     @Autowired
     private PersonService personService;
 
+    public List<TaskHistoryDTO> findByPersonId(Long personId) {
+        return repository.findByPersonId(personId)
+            .stream()
+            .map(this::convertTaskHistoryEntityToDto)
+            .toList();
+    }
+
     public Resource export(String acceptHeader) {
 
         logger.info("Exporting a Task's History");
@@ -53,7 +62,7 @@ public class TaskHistoryService {
             TaskHistoryExporter exporter = this.exporter.getExporter(acceptHeader);
 
             var tasksEntities = repository.findByPersonId(personId);
-            var tasks = convertTaskHistoryEntityToDto(tasksEntities);
+            var tasks = convertTaskHistoryEntityToReportDto(tasksEntities);
             var personEntity = personService.findEntityById(personId);
             var person = convertPersonEntityToDto(personEntity);
 
@@ -84,7 +93,7 @@ public class TaskHistoryService {
         );
     }
 
-    private List<TaskHistoryReportDTO> convertTaskHistoryEntityToDto(List<TaskHistory> tasksHistory) {
+    private List<TaskHistoryReportDTO> convertTaskHistoryEntityToReportDto(List<TaskHistory> tasksHistory) {
         List<TaskHistoryReportDTO> tasks = new ArrayList<>();
         for (TaskHistory task : tasksHistory) {
             tasks.add(new TaskHistoryReportDTO(
@@ -95,5 +104,15 @@ public class TaskHistoryService {
                 task.getType()));
         }
         return tasks;
+    }
+
+    private TaskHistoryDTO convertTaskHistoryEntityToDto(TaskHistory task) {
+        return new TaskHistoryDTO(
+            task.getId(),
+            task.getType(),
+            task.getOccurredAt(),
+            task.getTask().getTitle(),
+            task.getTask().getDescription(),
+            task.getPerson().getId());
     }
 }
