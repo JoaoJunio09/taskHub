@@ -99,51 +99,58 @@ O projeto segue boas práticas de arquitetura, com responsabilidades bem definid
 ├── 📜 pom.xml
 └── 📄 README.md
 ```
-🚧 Funcionalidades Planejadas
+## 🚧 Funcionalidades Planejadas
 
-O TaskHub continuará evoluindo. Próximos passos incluem:
+O **TaskHub** continuará evoluindo como um produto real.  
+Os próximos passos do projeto incluem funcionalidades que ampliam a experiência do usuário e aprofundam meu aprendizado backend:
 
-💬 Chat em tempo real entre usuários
+### 💬 Comunicação em Tempo Real
+- Chat em tempo real entre usuários
+- Notificações em tempo real integradas ao chat
 
-📰 Feed online com tarefas concluídas
+### 📰 Feed Social de Produtividade
+- Publicação de tarefas concluídas
+- Curtidas nas publicações
+- Comentários
+- Interação entre usuários
 
-Curtidas
+### 🧪 Qualidade de Software
+- Implementação de testes automatizados:
+  - Testes unitários
+  - Testes de integração
 
-Comentários
+### 🎨 Frontend
+- Frontend simples, focado apenas no consumo da API
+- Objetivo principal: validar e expor o backend de forma funcional
 
-Interação entre usuários
+---
 
-🔔 Notificações em tempo real integradas ao chat
+## 🧪 Qualidade e Próximos Passos
 
-🧪 Testes automatizados
+Após consolidar meus estudos em **testes automatizados**, o foco será elevar o nível do projeto para um padrão ainda mais profissional:
 
-Testes unitários
+- Implementar testes unitários e de integração
+- Aumentar a confiabilidade e previsibilidade do sistema
+- Melhorar a manutenibilidade e segurança do código
+- Simular padrões utilizados em **ambientes reais de produção**
 
-Testes de integração
+O objetivo é tratar o TaskHub como um **software de verdade**, não apenas um projeto de estudo.
 
-🎨 Frontend simples, apenas para consumo da API
+---
 
-🧪 Qualidade e Próximos Passos
+## 💡 Por que este projeto é importante para mim
 
-Após consolidar meus estudos em testes automatizados, o objetivo é:
+O **TaskHub** não é apenas um aplicativo — ele representa:
 
-Implementar testes unitários e de integração
+⭐ Minha evolução contínua como **desenvolvedor backend**  
+⭐ Aplicação prática de conceitos avançados de engenharia de software  
+⭐ Compromisso com **qualidade, arquitetura e boas práticas**  
+⭐ Visão de longo prazo como futuro **engenheiro de software**
 
-Aumentar a confiabilidade do sistema
+Este projeto reflete minha forma de aprender: **criando, errando, melhorando e evoluindo**.
 
-Tornar o projeto ainda mais profissional e robusto
+---
 
-Simular padrões usados em ambientes reais de produção
+## 📫 Contato
 
-💡 Por que este projeto é importante para mim
-
-O TaskHub não é apenas um app — ele representa:
-
-⭐ Minha evolução como desenvolvedor backend
-⭐ Aplicação prática de conceitos avançados
-⭐ Compromisso com qualidade e boas práticas
-⭐ Visão de longo prazo como engenheiro de software
-
-📫 Contato
-
-Se quiser conversar sobre Java, Spring Boot, arquitetura backend, projetos pessoais ou carreira em desenvolvimento de software, fique à vontade para entrar em contato 🚀
+Se quiser conversar sobre **Java**, **Spring Boot**, **arquitetura backend**, **projetos pessoais** ou **carreira em desenvolvimento de software**, fique à vontade para entrar em contato 🚀
