@@ -1,0 +1,149 @@
+# ✅ TaskHub — Gerenciador de Tarefas Premium (Backend Focus)
+
+![Java](https://img.shields.io/badge/Java-ED8B00?style=flat&logo=java&logoColor=white)
+![Spring Boot](https://img.shields.io/badge/Spring%20Boot-6DB33F?style=flat&logo=springboot&logoColor=white)
+![Backend](https://img.shields.io/badge/Backend--Focused-✔️-blue)
+![MVC](https://img.shields.io/badge/Architecture-MVC-informational)
+![REST API](https://img.shields.io/badge/API-REST-success)
+![Cloud Storage](https://img.shields.io/badge/Cloud-Backblaze%20B2-black)
+
+---
+
+## 📌 Visão Geral
+
+**TaskHub** é um **projeto pessoal e autoral** que desenvolvo com foco total em **backend**, qualidade de software e boas práticas de engenharia.
+
+A ideia central é ser um **gerenciador de tarefas premium**, indo além do básico de “criar, listar e concluir tarefas”, para servir como um **laboratório real de aprendizado**, onde aplico na prática tudo o que estudo sobre **Java, Spring Boot, arquitetura, integração de serviços e escalabilidade**.
+
+Tenho **17 anos** e estou construindo esse projeto pensando como um **produto real**, não apenas como um exercício acadêmico.
+
+---
+
+## 🎯 Propósito do Projeto
+
+Embora muitas funcionalidades possam parecer “além do necessário” para um simples gerenciador de tarefas, todas elas têm um objetivo claro:
+
+> **Aprender na prática como sistemas backend profissionais são projetados, integrados e mantidos.**
+
+Além disso, o TaskHub resolve um **problema real**: ajudar pessoas a se organizarem melhor no dia a dia, oferecendo uma experiência simples, mas com recursos avançados.
+
+---
+
+## ⚙️ Funcionalidades Implementadas
+
+Atualmente, o TaskHub conta com diversas funcionalidades típicas de sistemas profissionais:
+
+### 🧩 Core do Sistema
+- ✅ Gerenciamento completo de tarefas
+- ✅ Organização e controle por usuário
+- ✅ Arquitetura bem definida e separação de responsabilidades
+
+### 📧 Comunicação
+- 📩 **Envio de e-mails** (notificações e comunicações do sistema)
+- 🔔 **Notificações Web Push** para eventos importantes
+
+### 📊 Relatórios
+- 📄 **Geração de relatórios em PDF** utilizando **JasperReports**
+- 📈 Exportação de dados para análise
+
+### 📂 Arquivos e Armazenamento
+- 💾 **Armazenamento local de arquivos**
+- ☁️ **Integração com Backblaze B2 (Cloud Storage)**  
+  - Upload e gerenciamento de fotos de perfil dos usuários
+
+### 📥 Importação e Exportação de Dados
+- 📑 Importação e exportação de dados em **CSV**
+- 📊 Importação e exportação de dados em **XLSX (Excel)**
+
+---
+
+## 🧠 O que estou praticando com este projeto
+
+Este repositório é um reflexo direto do meu aprendizado em:
+
+- ✔️ **Java Backend com Spring Boot**
+- ✔️ **Arquitetura de software**
+- ✔️ **Padrão MVC (Model, View, Controller)**
+- ✔️ **Separação de responsabilidades**
+- ✔️ **Integração com serviços externos**
+- ✔️ **Boas práticas de código e organização**
+- ✔️ **Escalabilidade, segurança e manutenção**
+- ✔️ **Pensamento orientado a produto**
+
+Tudo é desenvolvido com foco em **clareza, organização e evolução contínua**.
+
+---
+
+## 🛠 Arquitetura e Organização
+
+O projeto segue boas práticas de arquitetura, com responsabilidades bem definidas para facilitar:
+
+- Manutenção
+- Escalabilidade
+- Testabilidade
+- Evolução do sistema
+
+```text
+📦 taskHub/
+├── 📂 src/
+│   ├── 📂 main/
+│   │   ├── 📂 java/
+│   │   │   ├── 📦 controller/   → Camada de controle (REST)
+│   │   │   ├── 📦 service/      → Regras de negócio
+│   │   │   ├── 📦 repository/   → Persistência de dados
+│   │   │   ├── 📦 model/        → Entidades do sistema
+│   │   │   └── 📦 config/       → Configurações gerais
+│   │   └── 📂 resources/
+│   └── 📂 test/
+│       └── 🧪 (em breve) testes automatizados
+├── 📜 pom.xml
+└── 📄 README.md
+```
+🚧 Funcionalidades Planejadas
+
+O TaskHub continuará evoluindo. Próximos passos incluem:
+
+💬 Chat em tempo real entre usuários
+
+📰 Feed online com tarefas concluídas
+
+Curtidas
+
+Comentários
+
+Interação entre usuários
+
+🔔 Notificações em tempo real integradas ao chat
+
+🧪 Testes automatizados
+
+Testes unitários
+
+Testes de integração
+
+🎨 Frontend simples, apenas para consumo da API
+
+🧪 Qualidade e Próximos Passos
+
+Após consolidar meus estudos em testes automatizados, o objetivo é:
+
+Implementar testes unitários e de integração
+
+Aumentar a confiabilidade do sistema
+
+Tornar o projeto ainda mais profissional e robusto
+
+Simular padrões usados em ambientes reais de produção
+
+💡 Por que este projeto é importante para mim
+
+O TaskHub não é apenas um app — ele representa:
+
+⭐ Minha evolução como desenvolvedor backend
+⭐ Aplicação prática de conceitos avançados
+⭐ Compromisso com qualidade e boas práticas
+⭐ Visão de longo prazo como engenheiro de software
+
+📫 Contato
+
+Se quiser conversar sobre Java, Spring Boot, arquitetura backend, projetos pessoais ou carreira em desenvolvimento de software, fique à vontade para entrar em contato 🚀
