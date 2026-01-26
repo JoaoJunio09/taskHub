@@ -6,6 +6,8 @@
 ![MVC](https://img.shields.io/badge/Architecture-MVC-informational)
 ![REST API](https://img.shields.io/badge/API-REST-success)
 ![Cloud Storage](https://img.shields.io/badge/Cloud-Backblaze%20B2-black)
+![Spring Security](https://img.shields.io/badge/Security-Spring%20Security-6DB33F)
+![JWT](https://img.shields.io/badge/Auth-JWT-orange)
 
 ---
 
@@ -38,6 +40,12 @@ Atualmente, o TaskHub conta com diversas funcionalidades típicas de sistemas pr
 - ✅ Organização e controle por usuário
 - ✅ Arquitetura bem definida e separação de responsabilidades
 
+### 🔐 Segurança da Aplicação
+- 🔒 Autenticação e autorização com **Spring Security**
+- 🔑 Controle de acesso via **Token JWT**
+- 👤 Proteção das APIs por perfil e permissões
+- 🚫 Endpoints seguros contra acessos não autorizados
+
 ### 📧 Comunicação
 - 📩 **Envio de e-mails** (notificações e comunicações do sistema)
 - 🔔 **Notificações Web Push** para eventos importantes
@@ -57,11 +65,24 @@ Atualmente, o TaskHub conta com diversas funcionalidades típicas de sistemas pr
 
 ---
 
+## 🔐 Segurança da Aplicação
+
+O TaskHub aplica conceitos reais de **segurança em APIs REST**, utilizando padrões amplamente adotados no mercado:
+
+- Autenticação baseada em **JWT (JSON Web Token)**
+- Configuração de segurança com **Spring Security**
+- Proteção de rotas sensíveis
+- Controle de acesso por autenticação
+- Arquitetura preparada para evolução de permissões e perfis
+
+A segurança não foi tratada como um detalhe, mas como parte essencial da arquitetura da aplicação.
+
 ## 🧠 O que estou praticando com este projeto
 
 Este repositório é um reflexo direto do meu aprendizado em:
 
 - ✔️ **Java Backend com Spring Boot**
+- ✔️ **Segurança de APIs REST com Spring Security e JWT**
 - ✔️ **Arquitetura de software**
 - ✔️ **Padrão MVC (Model, View, Controller)**
 - ✔️ **Separação de responsabilidades**
@@ -88,11 +109,12 @@ O projeto segue boas práticas de arquitetura, com responsabilidades bem definid
 ├── 📂 src/
 │   ├── 📂 main/
 │   │   ├── 📂 java/
-│   │   │   ├── 📦 controller/   → Camada de controle (REST)
-│   │   │   ├── 📦 service/      → Regras de negócio
-│   │   │   ├── 📦 repository/   → Persistência de dados
-│   │   │   ├── 📦 model/        → Entidades do sistema
-│   │   │   └── 📦 config/       → Configurações gerais
+│   │   │   ├── 📦 controller/     → Camada de controle (REST)
+│   │   │   ├── 📦 service/        → Regras de negócio
+│   │   │   ├── 📦 repository/     → Persistência de dados
+│   │   │   ├── 📦 infrastructure/ → Serviços externos (Gateway)
+│   │   │   ├── 📦 model/          → Entidades do sistema
+│   │   │   └── 📦 config/         → Configurações gerais
 │   │   └── 📂 resources/
 │   └── 📂 test/
 │       └── 🧪 (em breve) testes automatizados
