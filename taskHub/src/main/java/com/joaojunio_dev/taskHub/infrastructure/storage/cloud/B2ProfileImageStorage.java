@@ -25,15 +25,10 @@ import java.io.InputStream;
 @Component
 public class B2ProfileImageStorage implements ProfileImageStorage {
 
-    private final static Logger logger = LoggerFactory.getLogger(B2ProfileImageStorage.class.getName());
+    private final Logger logger = LoggerFactory.getLogger(B2ProfileImageStorage.class.getName());
 
-    private final B2StorageClient client;
-    private final B2Properties props;
-
-    public B2ProfileImageStorage(B2StorageClient client, B2Properties props) {
-        this.client = client;
-        this.props = props;
-    }
+    private B2StorageClient client;
+    private B2Properties props;
 
     public StoredFileResponse uploadProfileImage(MultipartFile image) {
         try {

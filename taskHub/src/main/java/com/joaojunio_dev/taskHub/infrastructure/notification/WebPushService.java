@@ -19,11 +19,7 @@ public class WebPushService {
     private final static Logger logger = LoggerFactory.getLogger(WebPushService.class.getName());
 
     @Autowired
-    private final PushService service;
-
-    public WebPushService(PushService service) {
-        this.service = service;
-    }
+    private PushService service;
 
     public void send(PushSubscription subscription, NotificationPayloadDTO payload) {
 
@@ -46,7 +42,6 @@ public class WebPushService {
             service.send(notification);
         }
         catch (Exception e) {
-            e.printStackTrace();
             throw new IsNotPossibleSendNotificationException("There was an error sending the notification to the client!");
         }
     }

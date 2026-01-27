@@ -22,26 +22,19 @@ import java.util.List;
 @Service
 public class NotificationService {
 
-    private final static Logger logger = LoggerFactory.getLogger(NotificationService.class.getName());
+    private final Logger logger = LoggerFactory.getLogger(NotificationService.class.getName());
 
     @Autowired
-    private final NotificationRepository notificationRepository;
+    private NotificationRepository notificationRepository;
 
     @Autowired
-    private final PushSubscriptionRepository subscriptionRepository;
+    private PushSubscriptionRepository subscriptionRepository;
 
     @Autowired
-    private final WebPushService webPushService;
+    private WebPushService webPushService;
 
     @Autowired
-    private final PersonService personService;
-
-    public NotificationService(NotificationRepository notificationRepository, PushSubscriptionRepository subscriptionRepository, WebPushService webPushService, PersonService personService) {
-        this.notificationRepository = notificationRepository;
-        this.subscriptionRepository = subscriptionRepository;
-        this.webPushService = webPushService;
-        this.personService = personService;
-    }
+    private PersonService personService;
 
     public void processPendingNotifications() {
         List<Notification> notifications = 
@@ -68,10 +61,9 @@ public class NotificationService {
 
     public NotificationDTO create(NotificationDTO notification) {
 
-        logger.info("Creating a one Notofication");
+        logger.info("Creating a one Notification");
 
         if (notification == null) throw new ObjectIsNullException("Object is null");
-
         var person = personService.findEntityById(notification.getTask().getPersonId());
 
         return convertEntityToDTO(notificationRepository.save(convertDtoToEntity(notification, person)));

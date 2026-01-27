@@ -8,14 +8,10 @@ import org.springframework.stereotype.Component;
 public class NotificationScheduler {
 
     @Autowired
-    private final NotificationService service;
-
-    public NotificationScheduler(NotificationService service) {
-        this.service = service;
-    }
+    private NotificationService service;
 
     @Scheduled(fixedRate = 6000)
-    public void run() {
+    void run() {
         service.processPendingNotifications();
     }
 }
